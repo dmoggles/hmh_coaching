@@ -3,21 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shapes Guide — Bob-Tails</title>
+<title>Shapes Guide — Bob-Tails (Print)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f5f5f3;
+    --bg: #ffffff;
     --white: #fff;
     --text: #111;
-    --muted: #888;
-    --border: #e0e0de;
-    --pitch-good: #1c5e38;
-    --pitch-bad: #5c1c1c;
+    --muted: #555;
+    --border: #ccc;
     --good: #1a6b3c;
     --good-bg: #f0f7f2;
     --good-border: #b8dfc8;
-    --bad: #c0392b;
+    --bad: #b5291e;
     --bad-bg: #fdf1f1;
     --bad-border: #f0c0bc;
   }
@@ -28,24 +26,24 @@
     background: var(--bg);
     color: var(--text);
     font-family: 'Inter', sans-serif;
-    padding: 36px 20px 60px;
+    padding: 28px 24px 48px;
   }
 
   header {
-    max-width: 1060px;
-    margin: 0 auto 40px;
+    max-width: 960px;
+    margin: 0 auto 28px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     border-bottom: 2px solid var(--text);
-    padding-bottom: 14px;
+    padding-bottom: 10px;
     gap: 16px;
     flex-wrap: wrap;
   }
 
   .header-left h1 {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-size: 2.2rem;
     font-weight: 700;
     letter-spacing: 0.02em;
     line-height: 1;
@@ -53,18 +51,17 @@
   }
 
   .header-left p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--muted);
-    margin-top: 5px;
+    margin-top: 4px;
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  /* Section headers */
   .section-header {
-    max-width: 1060px;
-    margin: 0 auto 16px;
+    max-width: 960px;
+    margin: 0 auto 14px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -72,14 +69,14 @@
 
   .section-header h2 {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
   .section-header.good h2 { color: var(--good); }
-  .section-header.bad h2 { color: var(--bad); }
+  .section-header.bad  h2 { color: var(--bad); }
 
   .section-header::after {
     content: '';
@@ -89,30 +86,29 @@
   }
 
   .section-header .pill {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 3px;
+    padding: 3px 8px;
+    border-radius: 2px;
   }
 
-  .section-header.good .pill { background: var(--good-bg); color: var(--good); }
-  .section-header.bad .pill { background: var(--bad-bg); color: var(--bad); }
+  .section-header.good .pill { background: var(--good-bg); color: var(--good); border: 1px solid var(--good-border); }
+  .section-header.bad  .pill { background: var(--bad-bg);  color: var(--bad);  border: 1px solid var(--bad-border); }
 
-  /* Grid of scenario cards */
   .scenarios {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-    max-width: 1060px;
-    margin: 0 auto 44px;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+    gap: 12px;
+    max-width: 960px;
+    margin: 0 auto 36px;
   }
 
   .scenario {
     background: var(--white);
-    border-radius: 10px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     overflow: hidden;
   }
 
@@ -120,9 +116,9 @@
   .scenario.bad  { border-top: 3px solid var(--bad); }
 
   .scenario-title {
-    padding: 12px 14px 0;
+    padding: 10px 12px 0;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -132,21 +128,20 @@
   .scenario.good .scenario-title { color: var(--good); }
   .scenario.bad  .scenario-title { color: var(--bad); }
 
-  /* SVG pitch */
   .pitch-svg {
     display: block;
     width: 100%;
-    padding: 10px 14px 0;
+    padding: 8px 12px 0;
   }
 
   .scenario-desc {
-    padding: 10px 14px 14px;
-    font-size: 0.76rem;
+    padding: 8px 12px 12px;
+    font-size: 0.72rem;
     font-weight: 500;
     color: #444;
-    line-height: 1.45;
+    line-height: 1.4;
     border-top: 1px solid var(--border);
-    margin-top: 10px;
+    margin-top: 8px;
   }
 
   .scenario.good .scenario-desc { background: var(--good-bg); }
@@ -155,11 +150,44 @@
   footer {
     text-align: center;
     margin-top: 8px;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     color: var(--muted);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-weight: 500;
+  }
+
+  .print-hint {
+    max-width: 960px;
+    margin: 0 auto 16px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  @media print {
+    @page { margin: 10mm 12mm; }
+
+    body { padding: 0; }
+    .print-hint { display: none; }
+
+    header { margin-bottom: 16px; padding-bottom: 8px; }
+    .header-left h1 { font-size: 1.8rem; }
+
+    .section-header { margin-bottom: 10px; }
+    .scenarios { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+
+    .scenario { page-break-inside: avoid; break-inside: avoid; }
+    .section-header { page-break-after: avoid; break-after: avoid; }
+
+    .scenario-title { padding: 7px 10px 0; font-size: 0.88rem; }
+
+    /* Fix height so SVG scales proportionally rather than filling column width */
+    .pitch-svg { height: 94mm; width: auto; padding: 4px 8px 0; display: block; margin: 0 auto; }
+
+    .scenario-desc { padding: 6px 10px 8px; font-size: 0.68rem; margin-top: 6px; }
+
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
 </head>
@@ -171,6 +199,8 @@
     <p>Bob-Tails · HMH · 7-a-Side · 2–3–1</p>
   </div>
 </header>
+
+<p class="print-hint">Print or save as PDF: Ctrl/⌘ + P</p>
 
 <!-- ═══════════════════════════════════════════ GOOD -->
 <div class="section-header good">
@@ -184,52 +214,39 @@
   <div class="scenario good">
     <div class="scenario-title">DM holds, wide mids push</div>
     <svg class="pitch-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
-      <!-- pitch -->
-      <rect x="10" y="10" width="180" height="240" rx="6" fill="#1c5e38"/>
-      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"/>
-      <!-- halfway -->
-      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
-      <!-- centre circle hint -->
-      <circle cx="100" cy="130" r="18" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-      <!-- goal top -->
-      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
-      <!-- goal bottom -->
-      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <rect x="10" y="10" width="180" height="240" rx="6" fill="#ddeee5"/>
+      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
+      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(0,0,0,0.18)" stroke-width="1" stroke-dasharray="4,3"/>
+      <circle cx="100" cy="130" r="18" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
+      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
 
-      <!-- OPP defence (grey) -->
       <circle cx="70" cy="50" r="10" fill="#aaa" opacity="0.7"/>
       <circle cx="130" cy="50" r="10" fill="#aaa" opacity="0.7"/>
       <text x="70" y="54" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
       <text x="130" y="54" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- ST (red) -->
       <circle cx="100" cy="75" r="10" fill="#c0392b"/>
       <text x="100" y="79" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">ST</text>
 
-      <!-- WM left - pushed high -->
       <circle cx="32" cy="90" r="10" fill="#27ae60"/>
       <text x="32" y="94" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">WM</text>
 
-      <!-- WM right - pushed high -->
       <circle cx="168" cy="90" r="10" fill="#27ae60"/>
       <text x="168" y="94" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">WM</text>
 
-      <!-- DM - holding -->
       <circle cx="100" cy="145" r="10" fill="#e67e22"/>
       <text x="100" y="149" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">DM</text>
 
-      <!-- CBs -->
       <circle cx="70" cy="185" r="10" fill="#6c3483"/>
       <circle cx="130" cy="185" r="10" fill="#6c3483"/>
       <text x="70" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
       <text x="130" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- GK -->
       <circle cx="100" cy="225" r="10" fill="#2471a3"/>
       <text x="100" y="229" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">GK</text>
 
-      <!-- DM cover zone indicator -->
-      <ellipse cx="100" cy="145" rx="30" ry="18" fill="rgba(230,126,34,0.12)" stroke="rgba(230,126,34,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+      <ellipse cx="100" cy="145" rx="30" ry="18" fill="rgba(230,126,34,0.15)" stroke="rgba(230,126,34,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
     </svg>
     <div class="scenario-desc">DM stays central between the lines. Both wide mids can push high because she covers the space behind them if the ball turns over.</div>
   </div>
@@ -238,53 +255,43 @@
   <div class="scenario good">
     <div class="scenario-title">Wide mid on ball — far side arrives late</div>
     <svg class="pitch-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
-      <rect x="10" y="10" width="180" height="240" rx="6" fill="#1c5e38"/>
-      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"/>
-      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
-      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
-      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <defs>
+        <marker id="arr-good-p" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(39,174,96,0.9)"/>
+        </marker>
+      </defs>
+      <rect x="10" y="10" width="180" height="240" rx="6" fill="#ddeee5"/>
+      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
+      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(0,0,0,0.18)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
+      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
 
-      <!-- Opp defence -->
       <circle cx="70" cy="50" r="10" fill="#aaa" opacity="0.7"/>
       <circle cx="130" cy="50" r="10" fill="#aaa" opacity="0.7"/>
       <text x="70" y="54" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
       <text x="130" y="54" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- ST -->
       <circle cx="100" cy="70" r="10" fill="#c0392b"/>
       <text x="100" y="74" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">ST</text>
 
-      <!-- WM left - has ball -->
       <circle cx="28" cy="80" r="10" fill="#27ae60"/>
       <text x="28" y="84" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">WM</text>
-      <!-- ball -->
-      <circle cx="28" cy="65" r="4" fill="white" opacity="0.9"/>
+      <circle cx="28" cy="65" r="4" fill="#333"/>
 
-      <!-- WM right - arriving at far post -->
       <circle cx="155" cy="48" r="10" fill="#27ae60" opacity="0.85"/>
       <text x="155" y="52" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">WM</text>
-      <!-- run arrow -->
-      <path d="M155,95 Q148,75 155,60" fill="none" stroke="rgba(39,174,96,0.7)" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-good)"/>
+      <path d="M155,95 Q148,75 155,60" fill="none" stroke="rgba(39,174,96,0.8)" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-good-p)"/>
 
-      <!-- DM - holding -->
       <circle cx="100" cy="148" r="10" fill="#e67e22"/>
       <text x="100" y="152" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">DM</text>
 
-      <!-- CBs -->
       <circle cx="70" cy="185" r="10" fill="#6c3483"/>
       <circle cx="130" cy="185" r="10" fill="#6c3483"/>
       <text x="70" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
       <text x="130" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- GK -->
       <circle cx="100" cy="225" r="10" fill="#2471a3"/>
       <text x="100" y="229" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">GK</text>
-
-      <defs>
-        <marker id="arr-good" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(39,174,96,0.8)"/>
-        </marker>
-      </defs>
     </svg>
     <div class="scenario-desc">Left wide mid has the ball. Right wide mid makes a late run to the far post. DM sits — so if the ball is lost, there's cover in midfield.</div>
   </div>
@@ -293,42 +300,34 @@
   <div class="scenario good">
     <div class="scenario-title">CBs — one presses, one covers</div>
     <svg class="pitch-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
-      <rect x="10" y="10" width="180" height="240" rx="6" fill="#1c5e38"/>
-      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"/>
-      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
-      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
-      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <defs>
+        <marker id="arr-press-p" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(108,50,131,0.9)"/>
+        </marker>
+      </defs>
+      <rect x="10" y="10" width="180" height="240" rx="6" fill="#ddeee5"/>
+      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
+      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(0,0,0,0.18)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
+      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
 
-      <!-- opp striker -->
       <circle cx="80" cy="155" r="10" fill="#aaa" opacity="0.8"/>
       <text x="80" y="159" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">ST</text>
-      <circle cx="80" cy="140" r="4" fill="white" opacity="0.9"/>
+      <circle cx="80" cy="140" r="4" fill="#333"/>
 
-      <!-- CB left - pressing -->
       <circle cx="80" cy="178" r="10" fill="#6c3483"/>
       <text x="80" y="182" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
-      <!-- press arrow -->
-      <line x1="80" y1="167" x2="80" y2="158" stroke="rgba(108,50,131,0.8)" stroke-width="1.5" marker-end="url(#arr-press)"/>
+      <line x1="80" y1="167" x2="80" y2="158" stroke="rgba(108,50,131,0.9)" stroke-width="1.5" marker-end="url(#arr-press-p)"/>
 
-      <!-- CB right - covering, tucked central -->
       <circle cx="115" cy="195" r="10" fill="#6c3483" opacity="0.75"/>
       <text x="115" y="199" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
-      <!-- cover zone -->
-      <ellipse cx="110" cy="205" rx="32" ry="12" fill="rgba(108,50,131,0.1)" stroke="rgba(108,50,131,0.25)" stroke-width="1" stroke-dasharray="3,2"/>
+      <ellipse cx="110" cy="205" rx="32" ry="12" fill="rgba(108,50,131,0.12)" stroke="rgba(108,50,131,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
 
-      <!-- DM -->
       <circle cx="100" cy="148" r="10" fill="#e67e22"/>
       <text x="100" y="152" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">DM</text>
 
-      <!-- GK -->
       <circle cx="100" cy="225" r="10" fill="#2471a3"/>
       <text x="100" y="229" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">GK</text>
-
-      <defs>
-        <marker id="arr-press" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(108,50,131,0.8)"/>
-        </marker>
-      </defs>
     </svg>
     <div class="scenario-desc">Left CB steps up to press the striker. Right CB tucks in centrally and holds — covering the space in behind. Never both step at once.</div>
   </div>
@@ -337,48 +336,38 @@
   <div class="scenario good">
     <div class="scenario-title">GK plays wide — not through the middle</div>
     <svg class="pitch-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
-      <rect x="10" y="10" width="180" height="240" rx="6" fill="#1c5e38"/>
-      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"/>
-      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
-      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
-      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <defs>
+        <marker id="arr-gk-p" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,0,0,0.75)"/>
+        </marker>
+      </defs>
+      <rect x="10" y="10" width="180" height="240" rx="6" fill="#ddeee5"/>
+      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
+      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(0,0,0,0.18)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
+      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
 
-      <!-- opp pressing -->
       <circle cx="100" cy="185" r="10" fill="#aaa" opacity="0.7"/>
       <text x="100" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">PR</text>
 
-      <!-- CB left - wide, free -->
       <circle cx="38" cy="185" r="10" fill="#6c3483"/>
       <text x="38" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- WM left - further up the same side -->
       <circle cx="28" cy="132" r="10" fill="#27ae60"/>
       <text x="28" y="136" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">WM</text>
 
-      <!-- CB right -->
       <circle cx="145" cy="185" r="10" fill="#6c3483" opacity="0.5"/>
       <text x="145" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- GK -->
       <circle cx="100" cy="228" r="10" fill="#2471a3"/>
       <text x="100" y="232" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">GK</text>
-      <circle cx="100" cy="213" r="4" fill="white" opacity="0.9"/>
+      <circle cx="100" cy="213" r="4" fill="#333"/>
 
-      <!-- pass arc to left CB -->
-      <path d="M100,218 Q65,200 42,192" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-dasharray="4,2" marker-end="url(#arr-gk)"/>
+      <path d="M100,218 Q65,200 42,192" fill="none" stroke="rgba(0,0,0,0.65)" stroke-width="1.8" stroke-dasharray="4,2" marker-end="url(#arr-gk-p)"/>
+      <path d="M100,218 Q52,190 32,140" fill="none" stroke="rgba(0,0,0,0.65)" stroke-width="1.8" stroke-dasharray="4,2" marker-end="url(#arr-gk-p)"/>
 
-      <!-- pass arc to left WM -->
-      <path d="M100,218 Q52,190 32,140" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-dasharray="4,2" marker-end="url(#arr-gk)"/>
-
-      <!-- danger zone label - middle -->
-      <rect x="72" y="195" width="56" height="20" rx="3" fill="rgba(192,57,43,0.15)" stroke="rgba(192,57,43,0.3)" stroke-width="1"/>
-      <text x="100" y="208" text-anchor="middle" font-size="7" fill="rgba(192,57,43,0.9)" font-family="Inter,sans-serif" font-weight="700">DANGER ZONE</text>
-
-      <defs>
-        <marker id="arr-gk" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(255,255,255,0.8)"/>
-        </marker>
-      </defs>
+      <rect x="72" y="195" width="56" height="20" rx="3" fill="rgba(192,57,43,0.12)" stroke="rgba(192,57,43,0.35)" stroke-width="1"/>
+      <text x="100" y="208" text-anchor="middle" font-size="7" fill="rgba(160,30,20,0.9)" font-family="Inter,sans-serif" font-weight="700">DANGER ZONE</text>
     </svg>
     <div class="scenario-desc">Opposition is pressing centrally. GK plays wide to the free CB or the wide midfielder on the same side — two safe options that avoid the danger zone in the middle.</div>
   </div>
@@ -397,13 +386,12 @@
   <div class="scenario bad">
     <div class="scenario-title">Midfield empty on turnover</div>
     <svg class="pitch-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
-      <rect x="10" y="10" width="180" height="240" rx="6" fill="#3d1a1a"/>
-      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/>
-      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4,3"/>
-      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
-      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
+      <rect x="10" y="10" width="180" height="240" rx="6" fill="#eedddd"/>
+      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
+      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(0,0,0,0.18)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
+      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
 
-      <!-- all three midfielders high -->
       <circle cx="32" cy="75" r="10" fill="#27ae60"/>
       <text x="32" y="79" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">WM</text>
 
@@ -416,16 +404,13 @@
       <circle cx="100" cy="50" r="10" fill="#c0392b"/>
       <text x="100" y="54" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">ST</text>
 
-      <!-- empty space highlight -->
-      <rect x="30" y="110" width="140" height="55" rx="4" fill="rgba(192,57,43,0.18)" stroke="rgba(192,57,43,0.5)" stroke-width="1.2" stroke-dasharray="4,2"/>
-      <text x="100" y="142" text-anchor="middle" font-size="8" fill="rgba(255,100,80,0.95)" font-family="Inter,sans-serif" font-weight="700">EMPTY — EASY TO COUNTER</text>
+      <rect x="30" y="110" width="140" height="55" rx="4" fill="rgba(192,57,43,0.15)" stroke="rgba(192,57,43,0.5)" stroke-width="1.2" stroke-dasharray="4,2"/>
+      <text x="100" y="142" text-anchor="middle" font-size="8" fill="rgba(160,30,20,0.9)" font-family="Inter,sans-serif" font-weight="700">EMPTY — EASY TO COUNTER</text>
 
-      <!-- opp with ball -->
       <circle cx="100" cy="105" r="10" fill="#aaa" opacity="0.9"/>
       <text x="100" y="109" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">OPP</text>
-      <circle cx="100" cy="120" r="4" fill="white" opacity="0.85"/>
+      <circle cx="100" cy="120" r="4" fill="#333"/>
 
-      <!-- CBs exposed -->
       <circle cx="70" cy="185" r="10" fill="#6c3483"/>
       <circle cx="130" cy="185" r="10" fill="#6c3483"/>
       <text x="70" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
@@ -442,50 +427,40 @@
     <div class="scenario-title">Both CBs step up — space in behind</div>
     <svg class="pitch-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <marker id="arr-run-b2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(255,150,100,0.9)"/>
+        <marker id="arr-run-b2-p" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(200,80,20,0.9)"/>
         </marker>
-        <marker id="arr-pass-b2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(255,255,255,0.75)"/>
+        <marker id="arr-pass-b2-p" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,0,0,0.7)"/>
         </marker>
       </defs>
+      <rect x="10" y="10" width="180" height="240" rx="6" fill="#eedddd"/>
+      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
+      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(0,0,0,0.18)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
+      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
 
-      <rect x="10" y="10" width="180" height="240" rx="6" fill="#3d1a1a"/>
-      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/>
-      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4,3"/>
-      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
-      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
-
-      <!-- OPP with ball (left side) -->
       <circle cx="45" cy="88" r="10" fill="#aaa" opacity="0.9"/>
       <text x="45" y="92" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">OPP</text>
-      <circle cx="59" cy="88" r="4" fill="white" opacity="0.85"/>
+      <circle cx="59" cy="88" r="4" fill="#333"/>
 
-      <!-- through ball (dashed, between CBs into space) -->
-      <path d="M55,92 L89,162" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-pass-b2)"/>
+      <path d="M55,92 L89,162" fill="none" stroke="rgba(0,0,0,0.6)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-pass-b2-p)"/>
+      <path d="M135,105 L104,160" fill="none" stroke="rgba(200,80,20,0.9)" stroke-width="1.5" marker-end="url(#arr-run-b2-p)"/>
 
-      <!-- ST run arrow (from upper-right, into space behind CBs) -->
-      <path d="M135,105 L104,160" fill="none" stroke="rgba(255,150,100,0.9)" stroke-width="1.5" marker-end="url(#arr-run-b2)"/>
-
-      <!-- OPP striker (in space behind CBs) -->
       <circle cx="100" cy="170" r="10" fill="#aaa" opacity="0.9"/>
       <text x="100" y="174" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">ST</text>
 
-      <!-- DM -->
       <circle cx="100" cy="128" r="10" fill="#e67e22"/>
       <text x="100" y="132" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">DM</text>
 
-      <!-- both CBs stepped up too high -->
       <circle cx="70" cy="155" r="10" fill="#6c3483"/>
       <circle cx="130" cy="155" r="10" fill="#6c3483"/>
       <text x="70" y="159" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
       <text x="130" y="159" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- danger space -->
-      <rect x="30" y="170" width="140" height="50" rx="4" fill="rgba(192,57,43,0.2)" stroke="rgba(192,57,43,0.5)" stroke-width="1.2" stroke-dasharray="4,2"/>
-      <text x="100" y="200" text-anchor="middle" font-size="8" fill="rgba(255,100,80,0.95)" font-family="Inter,sans-serif" font-weight="700">SPACE IN BEHIND</text>
+      <rect x="30" y="170" width="140" height="50" rx="4" fill="rgba(192,57,43,0.15)" stroke="rgba(192,57,43,0.5)" stroke-width="1.2" stroke-dasharray="4,2"/>
+      <text x="100" y="200" text-anchor="middle" font-size="8" fill="rgba(160,30,20,0.9)" font-family="Inter,sans-serif" font-weight="700">SPACE IN BEHIND</text>
 
-      <!-- GK exposed -->
       <circle cx="100" cy="228" r="10" fill="#2471a3"/>
       <text x="100" y="232" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">GK</text>
     </svg>
@@ -496,40 +471,34 @@
   <div class="scenario bad">
     <div class="scenario-title">GK passes through the middle</div>
     <svg class="pitch-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
-      <rect x="10" y="10" width="180" height="240" rx="6" fill="#3d1a1a"/>
-      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/>
-      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4,3"/>
-      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
-      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
+      <defs>
+        <marker id="arr-bad3-p" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(160,30,20,0.85)"/>
+        </marker>
+      </defs>
+      <rect x="10" y="10" width="180" height="240" rx="6" fill="#eedddd"/>
+      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
+      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(0,0,0,0.18)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
+      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
 
-      <!-- GK with ball -->
       <circle cx="100" cy="228" r="10" fill="#2471a3"/>
       <text x="100" y="232" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">GK</text>
-      <circle cx="100" cy="213" r="4" fill="white" opacity="0.9"/>
+      <circle cx="100" cy="213" r="4" fill="#333"/>
 
-      <!-- dangerous pass through middle -->
-      <path d="M100,218 L100,165" fill="none" stroke="rgba(192,57,43,0.8)" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-bad3)"/>
+      <path d="M100,218 L100,165" fill="none" stroke="rgba(160,30,20,0.8)" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-bad3-p)"/>
 
-      <!-- intercepting opp -->
       <circle cx="100" cy="175" r="10" fill="#aaa" opacity="0.9"/>
       <text x="100" y="179" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">OPP</text>
 
-      <!-- danger zone -->
-      <rect x="60" y="160" width="80" height="30" rx="3" fill="rgba(192,57,43,0.18)" stroke="rgba(192,57,43,0.5)" stroke-width="1" stroke-dasharray="3,2"/>
+      <rect x="60" y="160" width="80" height="30" rx="3" fill="rgba(192,57,43,0.15)" stroke="rgba(192,57,43,0.5)" stroke-width="1" stroke-dasharray="3,2"/>
 
-      <!-- CBs -->
       <circle cx="70" cy="195" r="10" fill="#6c3483" opacity="0.6"/>
       <circle cx="130" cy="195" r="10" fill="#6c3483" opacity="0.6"/>
       <text x="70" y="199" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
       <text x="130" y="199" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <text x="100" y="148" text-anchor="middle" font-size="7.5" fill="rgba(255,100,80,0.95)" font-family="Inter,sans-serif" font-weight="700">INTERCEPTION = GOAL</text>
-
-      <defs>
-        <marker id="arr-bad3" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(192,57,43,0.8)"/>
-        </marker>
-      </defs>
+      <text x="100" y="148" text-anchor="middle" font-size="7.5" fill="rgba(160,30,20,0.9)" font-family="Inter,sans-serif" font-weight="700">INTERCEPTION = GOAL</text>
     </svg>
     <div class="scenario-desc">GK plays through the middle under pressure. Opposition intercepts centrally and is immediately through on goal.</div>
   </div>
@@ -538,56 +507,44 @@
   <div class="scenario bad">
     <div class="scenario-title">Wide mid doesn't track back — 2v1 on the flank</div>
     <svg class="pitch-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
-      <rect x="10" y="10" width="180" height="240" rx="6" fill="#3d1a1a"/>
-      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/>
-      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4,3"/>
-      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
-      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
+      <defs>
+        <marker id="arr-should-p" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(39,174,96,0.6)"/>
+        </marker>
+      </defs>
+      <rect x="10" y="10" width="180" height="240" rx="6" fill="#eedddd"/>
+      <rect x="18" y="18" width="164" height="224" rx="4" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
+      <line x1="18" y1="130" x2="182" y2="130" stroke="rgba(0,0,0,0.18)" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="70" y="10" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
+      <rect x="70" y="240" width="60" height="10" rx="2" fill="rgba(0,0,0,0.08)"/>
 
-      <!-- WM left — still high, not tracked back -->
       <circle cx="32" cy="78" r="10" fill="#27ae60" opacity="0.6"/>
       <text x="32" y="82" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">WM</text>
-      <!-- should be here indicator -->
-      <circle cx="32" cy="155" r="10" fill="none" stroke="rgba(39,174,96,0.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
-      <text x="32" y="159" text-anchor="middle" font-size="7" fill="rgba(39,174,96,0.7)" font-family="Inter,sans-serif" font-weight="600">WM</text>
-      <!-- arrow showing where they should be -->
-      <path d="M32,90 L32,143" fill="none" stroke="rgba(39,174,96,0.4)" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arr-should)"/>
+      <circle cx="32" cy="155" r="10" fill="none" stroke="rgba(39,174,96,0.6)" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="32" y="159" text-anchor="middle" font-size="7" fill="rgba(27,120,60,0.8)" font-family="Inter,sans-serif" font-weight="600">WM</text>
+      <path d="M32,90 L32,143" fill="none" stroke="rgba(39,174,96,0.5)" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arr-should-p)"/>
 
-      <!-- opp with ball on left flank -->
       <circle cx="38" cy="148" r="10" fill="#aaa" opacity="0.9"/>
       <text x="38" y="152" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">OPP</text>
-      <circle cx="38" cy="162" r="4" fill="white" opacity="0.85"/>
+      <circle cx="38" cy="162" r="4" fill="#333"/>
 
-      <!-- opp supporting — splits the CB -->
       <circle cx="80" cy="185" r="10" fill="#aaa" opacity="0.9"/>
       <text x="80" y="189" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">OPP</text>
 
-      <!-- lone CB trying to cover both -->
       <circle cx="60" cy="190" r="10" fill="#6c3483"/>
       <text x="60" y="194" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- danger zone -->
-      <rect x="18" y="135" width="80" height="70" rx="3" fill="rgba(192,57,43,0.18)" stroke="rgba(192,57,43,0.5)" stroke-width="1" stroke-dasharray="3,2"/>
-      <text x="56" y="196" text-anchor="middle" font-size="0" fill="none"/>
-      <text x="56" y="125" text-anchor="middle" font-size="7.5" fill="rgba(255,100,80,0.95)" font-family="Inter,sans-serif" font-weight="700">2 v 1</text>
+      <rect x="18" y="135" width="80" height="70" rx="3" fill="rgba(192,57,43,0.12)" stroke="rgba(192,57,43,0.5)" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="56" y="125" text-anchor="middle" font-size="7.5" fill="rgba(160,30,20,0.9)" font-family="Inter,sans-serif" font-weight="700">2 v 1</text>
 
-      <!-- right CB in position -->
       <circle cx="130" cy="185" r="10" fill="#6c3483" opacity="0.5"/>
       <text x="130" y="189" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">CB</text>
 
-      <!-- DM -->
       <circle cx="100" cy="148" r="10" fill="#e67e22"/>
       <text x="100" y="152" text-anchor="middle" font-size="7" fill="white" font-family="Inter,sans-serif" font-weight="600">DM</text>
 
-      <!-- GK -->
       <circle cx="100" cy="228" r="10" fill="#2471a3"/>
       <text x="100" y="232" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif" font-weight="600">GK</text>
-
-      <defs>
-        <marker id="arr-should" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(39,174,96,0.5)"/>
-        </marker>
-      </defs>
     </svg>
     <div class="scenario-desc">Left wide mid didn't track back after we lost the ball. Opposition has a 2v1 on that flank — one CB against two attackers, with no help.</div>
   </div>

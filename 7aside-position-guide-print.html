@@ -3,190 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>7-a-Side Position Guide</title>
+<title>7-a-Side Position Guide (Print)</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --pitch: #1a6b3c;
-    --pitch-light: #1e7d47;
-    --gold: #f0c040;
-    --red: #e03a3a;
-    --green: #3adb76;
-    --card-bg: #0f1f16;
-    --card-border: #2a4a35;
-    --text: #e8f5ee;
-    --muted: #7aab8a;
+    --bg: #ffffff;
+    --text: #111;
+    --muted: #555;
+    --border: #ccc;
+    --do: #1a6b3c;
+    --dont: #b5291e;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: #0a1510;
+    background: var(--bg);
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    padding: 32px 16px 48px;
+    padding: 28px 24px 48px;
   }
 
+  /* ── Header ── */
   header {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 14px;
   }
 
   header h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     letter-spacing: 0.06em;
-    color: var(--gold);
-    text-shadow: 0 0 40px rgba(240,192,64,0.25);
+    color: var(--text);
     line-height: 1;
   }
 
   header p {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: var(--muted);
-    margin-top: 6px;
+    margin-top: 5px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
+  /* ── Formation strip ── */
   .formation-strip {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 36px;
+    gap: 8px;
+    margin-bottom: 24px;
     flex-wrap: wrap;
   }
 
   .pos-badge {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 6px;
-    padding: 6px 14px;
+    border: 1px solid var(--border);
+    padding: 4px 12px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
+    font-size: 0.9rem;
     letter-spacing: 0.1em;
     color: var(--muted);
   }
-  .pos-badge.active { color: var(--gold); border-color: var(--gold); }
 
+  .pos-badge.active {
+    color: var(--text);
+    border-color: var(--text);
+  }
+
+  /* ── Card grid ── */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     align-items: start;
-    gap: 20px;
-    max-width: 1200px;
+    gap: 14px;
+    max-width: 960px;
     margin: 0 auto;
   }
 
   .card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    overflow: hidden;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-top: 3px solid var(--accent, #111);
     position: relative;
   }
 
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--accent, var(--gold));
-  }
-
+  /* ── Card header ── */
   .card-header {
-    padding: 18px 20px 14px;
-    border-bottom: 1px solid var(--card-border);
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
   }
 
   .pos-icon {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: var(--accent, var(--gold));
+    border: 2px solid var(--accent, #111);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
-    color: #0a1510;
+    font-size: 0.9rem;
+    color: var(--accent, #111);
     letter-spacing: 0.05em;
     flex-shrink: 0;
+    background: #fff;
   }
 
   .card-title h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     letter-spacing: 0.08em;
     color: var(--text);
     line-height: 1;
   }
 
   .card-title span {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
   }
 
+  /* ── In / Out phases ── */
   .phases {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 
   .phase {
-    padding: 16px 18px;
+    padding: 12px 14px;
   }
 
   .phase:first-child {
-    border-right: 1px solid var(--card-border);
+    border-right: 1px solid var(--border);
   }
 
   .phase-label {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    margin-bottom: 10px;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
   }
 
-  .phase-label.in { color: var(--green); }
-  .phase-label.out { color: #e07050; }
+  .phase-label.in   { color: var(--do); }
+  .phase-label.out  { color: var(--dont); }
 
   .phase-label::before {
     content: '';
     display: inline-block;
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: currentColor;
+    flex-shrink: 0;
   }
 
+  /* ── Rules list ── */
   .rules { list-style: none; }
 
   .rules li {
-    font-size: 0.8rem;
-    line-height: 1.4;
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.75rem;
+    line-height: 1.35;
+    padding: 4px 0;
+    border-bottom: 1px solid #eee;
     display: flex;
-    gap: 7px;
+    gap: 6px;
     align-items: flex-start;
-    color: #c8e0d0;
+    color: var(--text);
   }
 
   .rules li:last-child { border-bottom: none; }
 
   .rules li .do {
-    color: var(--green);
+    color: var(--do);
     font-weight: 600;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     flex-shrink: 0;
@@ -194,96 +192,132 @@
   }
 
   .rules li .dont {
-    color: var(--red);
+    color: var(--dont);
     font-weight: 600;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     flex-shrink: 0;
     margin-top: 1px;
   }
 
+  /* ── Key trait ── */
   .divider {
     border: none;
-    border-top: 1px solid var(--card-border);
-    margin: 0 18px;
+    border-top: 1px solid var(--border);
+    margin: 0 14px;
   }
 
   .key-trait {
-    padding: 10px 18px;
-    font-size: 0.72rem;
+    padding: 8px 14px;
+    font-size: 0.7rem;
     color: var(--muted);
     font-style: italic;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
+    border-left: 3px solid var(--accent, #111);
   }
 
   .key-trait strong {
-    color: var(--accent, var(--gold));
+    color: var(--accent, #111);
     font-style: normal;
   }
 
+  /* ── Glossary ── */
   .glossary {
-    max-width: 1200px;
-    margin: 48px auto 0;
+    max-width: 960px;
+    margin: 36px auto 0;
   }
 
   .glossary-header {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: 14px;
+    margin-bottom: 14px;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 8px;
   }
 
   .glossary-header h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     letter-spacing: 0.08em;
-    color: var(--gold);
-  }
-
-  .glossary-header::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--card-border);
+    color: var(--text);
   }
 
   .glossary-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
   }
 
   .glossary-item {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 12px 16px;
+    border: 1px solid var(--border);
+    padding: 8px 12px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
   }
 
   .glossary-term {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     letter-spacing: 0.08em;
-    color: var(--gold);
+    color: var(--text);
   }
 
   .glossary-def {
-    font-size: 0.78rem;
-    color: #c8e0d0;
-    line-height: 1.45;
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.4;
   }
 
+  /* ── Page footer ── */
   footer {
     text-align: center;
-    margin-top: 40px;
-    font-size: 0.72rem;
+    margin-top: 32px;
+    font-size: 0.65rem;
     color: var(--muted);
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ── Screen hint ── */
+  .print-hint {
+    max-width: 960px;
+    margin: 0 auto 16px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ── Print rules ── */
+  @media print {
+    @page { margin: 12mm 14mm; }
+
+    body { padding: 0; }
+
+    .print-hint { display: none; }
+
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .glossary-item {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
   }
 </style>
 </head>
@@ -293,6 +327,8 @@
   <h1>7-a-Side Position Guide</h1>
   <p>2 · 3 · 1 System — In &amp; Out of Possession</p>
 </header>
+
+<p class="print-hint">Print or save as PDF: Ctrl/⌘ + P</p>
 
 <div class="formation-strip">
   <div class="pos-badge">GK</div>
@@ -304,9 +340,9 @@
 <div class="grid">
 
   <!-- GOALKEEPER -->
-  <div class="card" style="--accent: #7aabff;">
+  <div class="card" style="--accent:#2471a3;">
     <div class="card-header">
-      <div class="pos-icon" style="background:#7aabff;">GK</div>
+      <div class="pos-icon">GK</div>
       <div class="card-title">
         <h2>Goalkeeper</h2>
         <span>Last line &amp; first attacker</span>
@@ -339,9 +375,9 @@
   </div>
 
   <!-- CENTRE BACKS -->
-  <div class="card" style="--accent: #a07aff;">
+  <div class="card" style="--accent:#6c3483;">
     <div class="card-header">
-      <div class="pos-icon" style="background:#a07aff;">CB</div>
+      <div class="pos-icon">CB</div>
       <div class="card-title">
         <h2>Centre Backs</h2>
         <span>Foundation of the system</span>
@@ -374,7 +410,7 @@
   </div>
 
   <!-- DM -->
-  <div class="card" style="--accent: var(--gold);">
+  <div class="card" style="--accent:#b08a00;">
     <div class="card-header">
       <div class="pos-icon">DM</div>
       <div class="card-title">
@@ -409,9 +445,9 @@
   </div>
 
   <!-- WIDE CM -->
-  <div class="card" style="--accent: #3adb76;">
+  <div class="card" style="--accent:#1a6b3c;">
     <div class="card-header">
-      <div class="pos-icon" style="background:#3adb76;">WM</div>
+      <div class="pos-icon">WM</div>
       <div class="card-title">
         <h2>Wide Midfielders</h2>
         <span>Engine of attack &amp; defensive discipline</span>
@@ -444,9 +480,9 @@
   </div>
 
   <!-- STRIKER -->
-  <div class="card" style="--accent: #e03a3a;">
+  <div class="card" style="--accent:#b5291e;">
     <div class="card-header">
-      <div class="pos-icon" style="background:#e03a3a;">ST</div>
+      <div class="pos-icon">ST</div>
       <div class="card-title">
         <h2>Striker</h2>
         <span>Press trigger &amp; finisher</span>

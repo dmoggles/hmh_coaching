@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Position Guide — Bob-Tails (Print)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #111;
+    --muted: #555;
+    --border: #ccc;
+    --do: #1a6b3c;
+    --dont: #b5291e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    padding: 28px 24px 48px;
+  }
+
+  /* ── Header ── */
+  header {
+    max-width: 960px;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 10px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .header-left h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .header-left p {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 4px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    text-align: right;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  /* ── Pitch diagram ── */
+  .pitch-wrap {
+    max-width: 200px;
+    margin: 0 auto 28px;
+  }
+
+  .pitch {
+    border: 1.5px solid var(--text);
+    border-radius: 4px;
+    padding: 14px 10px 10px;
+    position: relative;
+    background: #fff;
+  }
+
+  .pitch-inner {
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    padding: 10px 8px;
+  }
+
+  .pitch-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 4px 0;
+  }
+
+  .pdot {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: 2px solid currentColor;
+    background: #fff;
+  }
+
+  .p-half {
+    border-top: 1px dashed #bbb;
+    margin: 6px 0;
+  }
+
+  .pitch-caption {
+    text-align: center;
+    font-size: 0.58rem;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+  /* ── Card grid ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+    gap: 14px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-top: 3px solid var(--accent);
+    overflow: hidden;
+  }
+
+  /* ── Card header ── */
+  .card-header {
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pos-pill {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    padding: 3px 8px;
+    flex-shrink: 0;
+  }
+
+  .card-header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .card-header .subtitle {
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  /* ── One job ── */
+  .one-job {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+  }
+
+  .one-job-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  .one-job-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text);
+  }
+
+  /* ── Do / Don't columns ── */
+  .rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .col {
+    padding: 10px 12px 12px;
+  }
+
+  .col:first-child {
+    border-right: 1px solid var(--border);
+  }
+
+  .col-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .col.do .col-label  { color: var(--do); }
+  .col.dont .col-label { color: var(--dont); }
+
+  .col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .col ul li {
+    font-size: 0.74rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text);
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .col ul li .mark {
+    font-size: 0.65rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .col.do   ul li .mark { color: var(--do); }
+  .col.dont ul li .mark { color: var(--dont); }
+
+  /* ── Tips ── */
+  .tips {
+    padding: 9px 12px 11px;
+    border-top: 1px solid var(--border);
+  }
+
+  .tips-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .tip-item {
+    border: 1px solid var(--border);
+    padding: 6px 8px;
+  }
+
+  .tip-title {
+    font-size: 0.67rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1px;
+  }
+
+  .tip-body {
+    font-size: 0.67rem;
+    font-weight: 500;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  /* ── Footer stripe ── */
+  .card-footer {
+    border-top: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 8px 12px;
+  }
+
+  .card-footer p {
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.35;
+  }
+
+  /* ── Page footer ── */
+  footer {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ── Screen hint ── */
+  .print-hint {
+    max-width: 960px;
+    margin: 0 auto 20px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ── Print rules ── */
+  @media print {
+    @page { margin: 12mm 14mm; }
+
+    body { padding: 0; }
+
+    .print-hint { display: none; }
+
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* ensure accent colours and borders survive print */
+    * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>Position Guide</h1>
+    <p>Bob-Tails · HMH · 7-a-Side · 2–3–1</p>
+  </div>
+  <div class="header-right">
+    When we have the ball<br>
+    When they have the ball
+  </div>
+</header>
+
+<p class="print-hint">Print or save as PDF: Ctrl/⌘ + P</p>
+
+<div class="pitch-wrap">
+  <div class="pitch">
+    <div class="pitch-inner">
+      <div class="pitch-row"><div class="pdot" style="color:#c0392b;">ST</div></div>
+      <div class="pitch-row">
+        <div class="pdot" style="color:#27ae60;">WM</div>
+        <div class="pdot" style="color:#e67e22;">MID</div>
+        <div class="pdot" style="color:#27ae60;">WM</div>
+      </div>
+      <div class="p-half"></div>
+      <div class="pitch-row">
+        <div class="pdot" style="color:#6c3483;">CB</div>
+        <div class="pdot" style="color:#6c3483;">CB</div>
+      </div>
+      <div class="pitch-row"><div class="pdot" style="color:#2471a3;">GK</div></div>
+    </div>
+    <div class="pitch-caption">↑ Attack · Defence ↓</div>
+  </div>
+</div>
+
+<div class="cards">
+
+  <!-- GK -->
+  <div class="card" style="--accent:#2471a3;">
+    <div class="card-header">
+      <div class="pos-pill">GK</div>
+      <div>
+        <h2>Goalkeeper</h2>
+        <div class="subtitle">Last defender · First passer</div>
+      </div>
+    </div>
+    <div class="one-job">
+      <div class="one-job-label">Your main job</div>
+      <div class="one-job-text">Stop shots — and when you have the ball, keep it safe. Never give it away in a dangerous area.</div>
+    </div>
+    <div class="rules">
+      <div class="col do">
+        <div class="col-label">Do this</div>
+        <ul>
+          <li><span class="mark">✓</span>Look up before the ball arrives — know your pass before you get it</li>
+          <li><span class="mark">✓</span>Always play to wide areas or to the sides — never through the middle</li>
+          <li><span class="mark">✓</span>Come off your line for balls played in behind</li>
+          <li><span class="mark">✓</span>Talk — tell your defenders what's coming</li>
+        </ul>
+      </div>
+      <div class="col dont">
+        <div class="col-label">Not this</div>
+        <ul>
+          <li><span class="mark">✗</span>Pass into the middle of the pitch — if it's intercepted, they're through on goal</li>
+          <li><span class="mark">✗</span>Take risks when you're not sure — kick it long instead</li>
+          <li><span class="mark">✗</span>Hold the ball under pressure — play simple and fast</li>
+          <li><span class="mark">✗</span>Go to ground too early in a 1v1 — stay big and wait</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tips">
+      <div class="tips-label">Distribution — safest option first</div>
+      <div class="tips-grid">
+        <div class="tip-item">
+          <div class="tip-title">1. CB wide and free</div>
+          <div class="tip-body">First choice. Roll or throw to their feet out wide.</div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-title">2. Wide mid is open</div>
+          <div class="tip-body">Throw or kick into the wide channel — starts our attack quickly.</div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-title">3. Everything is covered</div>
+          <div class="tip-body">Kick long to the striker. Safe is better than clever.</div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-title">Never do this</div>
+          <div class="tip-body">Pass through the middle. One interception = a goal against.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer"><p>Safe and simple beats clever and risky. Protect the middle — always play wide.</p></div>
+  </div>
+
+  <!-- CB -->
+  <div class="card" style="--accent:#6c3483;">
+    <div class="card-header">
+      <div class="pos-pill">CB</div>
+      <div>
+        <h2>Centre Back</h2>
+        <div class="subtitle">Defend · Stay behind the ball</div>
+      </div>
+    </div>
+    <div class="one-job">
+      <div class="one-job-label">Your main job</div>
+      <div class="one-job-text">Keep them from scoring. Stay between the attacker and the goal</div>
+    </div>
+    <div class="rules">
+      <div class="col do">
+        <div class="col-label">Do this</div>
+        <ul>
+          <li><span class="mark">✓</span>Stay goalside — always keep yourself between the attacker and the goal</li>
+          <li><span class="mark">✓</span>Get side-on when an attacker runs at you — don't face them straight on</li>
+          <li><span class="mark">✓</span>If you get beaten, sprint back on the inside — don't chase from behind</li>
+          <li><span class="mark">✓</span>Use the middle midfielder as your pass when you're under pressure</li>
+          <li><span class="mark">✓</span>Talk to your partner — one presses, one holds back</li>
+        </ul>
+      </div>
+      <div class="col dont">
+        <div class="col-label">Not this</div>
+        <ul>
+          <li><span class="mark">✗</span>Dive in — hold your position and wait for the right moment</li>
+          <li><span class="mark">✗</span>Both push up at the same time</li>
+          <li><span class="mark">✗</span>Chase the ball wide — hold your central position</li>
+          <li><span class="mark">✗</span>Turn your back when recovering — keep your eye on the ball</li>
+          <li><span class="mark">✗</span>Panic — take a touch and play simple</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-footer"><p>One of you presses. The other one covers behind. Always.</p></div>
+  </div>
+
+  <!-- MID -->
+  <div class="card" style="--accent:#e67e22;">
+    <div class="card-header">
+      <div class="pos-pill">MID</div>
+      <div>
+        <h2>Middle Midfielder</h2>
+        <div class="subtitle">The link · Always available</div>
+      </div>
+    </div>
+    <div class="one-job">
+      <div class="one-job-label">Your main job</div>
+      <div class="one-job-text">Stay in the middle so your teammates always have somewhere to pass</div>
+    </div>
+    <div class="rules">
+      <div class="col do">
+        <div class="col-label">Do this</div>
+        <ul>
+          <li><span class="mark">✓</span>Stay central — be the safe option</li>
+          <li><span class="mark">✓</span>Show for the ball when the defenders have it</li>
+          <li><span class="mark">✓</span>Win the ball back quickly when we lose it</li>
+        </ul>
+      </div>
+      <div class="col dont">
+        <div class="col-label">Not this</div>
+        <ul>
+          <li><span class="mark">✗</span>Follow the wide players forward</li>
+          <li><span class="mark">✗</span>Drift wide and leave the middle empty</li>
+          <li><span class="mark">✗</span>Relax when we're on top — keep your shape</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-footer"><p>You're the safe pass. Always be somewhere a teammate can find you.</p></div>
+  </div>
+
+  <!-- WM -->
+  <div class="card" style="--accent:#27ae60;">
+    <div class="card-header">
+      <div class="pos-pill">WM</div>
+      <div>
+        <h2>Wide Midfielder</h2>
+        <div class="subtitle">Attack wide · Sprint back</div>
+      </div>
+    </div>
+    <div class="one-job">
+      <div class="one-job-label">Your main job</div>
+      <div class="one-job-text">Get forward and cause problems — then sprint back the moment we lose the ball</div>
+    </div>
+    <div class="rules">
+      <div class="col do">
+        <div class="col-label">Do this</div>
+        <ul>
+          <li><span class="mark">✓</span>Push wide and high when we have the ball</li>
+          <li><span class="mark">✓</span>Run into the box and arrive late</li>
+          <li><span class="mark">✓</span>Sprint back as soon as we lose it</li>
+        </ul>
+      </div>
+      <div class="col dont">
+        <div class="col-label">Not this</div>
+        <ul>
+          <li><span class="mark">✗</span>Both wide players push forward together</li>
+          <li><span class="mark">✗</span>Jog back — sprint back, every time</li>
+          <li><span class="mark">✗</span>Watch when the other team has it</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-footer"><p>Your freedom to attack is earned by your work when we don't have the ball.</p></div>
+  </div>
+
+  <!-- ST -->
+  <div class="card" style="--accent:#c0392b;">
+    <div class="card-header">
+      <div class="pos-pill">ST</div>
+      <div>
+        <h2>Striker</h2>
+        <div class="subtitle">Score · Lead the press</div>
+      </div>
+    </div>
+    <div class="one-job">
+      <div class="one-job-label">Your main job</div>
+      <div class="one-job-text">Score goals — and be the first to chase their defenders when they have it</div>
+    </div>
+    <div class="rules">
+      <div class="col do">
+        <div class="col-label">Do this</div>
+        <ul>
+          <li><span class="mark">✓</span>Hold the ball up and wait for support</li>
+          <li><span class="mark">✓</span>Make runs in behind their defenders</li>
+          <li><span class="mark">✓</span>Chase their CB when they have the ball</li>
+        </ul>
+      </div>
+      <div class="col dont">
+        <div class="col-label">Not this</div>
+        <ul>
+          <li><span class="mark">✗</span>Drop too deep — stay up as a target</li>
+          <li><span class="mark">✗</span>Hold the ball too long in tight spaces</li>
+          <li><span class="mark">✗</span>Give up after the first chase — keep going</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-footer"><p>When you chase their defender, the whole team presses with you. You start it.</p></div>
+  </div>
+
+</div>
+
+<footer>Bob-Tails · HMH · 7-a-Side · 2–3–1</footer>
+
+</body>
+</html>

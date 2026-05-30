@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob-Tails — Coaching Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f5f3;
+    --white: #ffffff;
+    --text: #111;
+    --muted: #888;
+    --border: #e0e0de;
+    --pitch: #1c5e38;
+    --pitch-light: #1e7d47;
+    --gold: #d4a017;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    padding: 36px 20px 80px;
+    min-height: 100vh;
+  }
+
+  header {
+    max-width: 860px;
+    margin: 0 auto 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 14px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  header .tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pitch-badge {
+    display: inline-block;
+    background: var(--pitch);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-left: 10px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+  }
+
+  .intro {
+    max-width: 860px;
+    margin: 0 auto 40px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .grid {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+
+  .card:hover {
+    border-color: var(--pitch);
+    box-shadow: 0 4px 18px rgba(28, 94, 56, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .card-thumb {
+    height: 7px;
+    background: var(--pitch);
+  }
+
+  .card-thumb.dark {
+    background: linear-gradient(90deg, #0a1510 0%, #1a6b3c 100%);
+  }
+
+  .card-body {
+    padding: 22px 20px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pitch);
+  }
+
+  .card-label.dark-label {
+    color: #3adb76;
+  }
+
+  .card h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .card-arrow {
+    margin-top: 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--pitch);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-arrow.dark-arrow {
+    color: #3adb76;
+  }
+
+  .card-arrow::after {
+    content: '→';
+    font-size: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Bob-Tails <span class="pitch-badge">7-a-side</span></h1>
+  <div class="tag">Coaching Hub</div>
+</header>
+
+<p class="intro">
+  Resources for players and coaches. Click a guide to open it.
+</p>
+
+<div class="grid">
+
+  <a class="card" href="7aside-player-guide.html">
+    <div class="card-thumb"></div>
+    <div class="card-body">
+      <div class="card-label">Player Reference</div>
+      <h2>Position Guide</h2>
+      <p>Role-by-role breakdown of what each position does, with clear dos and don'ts for GK, CB, midfielders, and striker.</p>
+      <div class="card-arrow">Open guide</div>
+    </div>
+  </a>
+
+  <a class="card" href="7aside-shapes-guide.html">
+    <div class="card-thumb"></div>
+    <div class="card-body">
+      <div class="card-label">Team Shape</div>
+      <h2>Shapes &amp; Movements</h2>
+      <p>Visual walkthroughs of good team shapes to build and dangerous shapes to avoid — in and out of possession.</p>
+      <div class="card-arrow">Open guide</div>
+    </div>
+  </a>
+
+  <a class="card" href="7aside-position-guide.html">
+    <div class="card-thumb dark"></div>
+    <div class="card-body">
+      <div class="card-label dark-label">Detailed Reference</div>
+      <h2>7-a-Side Position Guide</h2>
+      <p>In-depth position cards with responsibilities, key decisions, and a glossary of common tactical terms.</p>
+      <div class="card-arrow dark-arrow">Open guide</div>
+    </div>
+  </a>
+
+</div>
+
+</body>
+</html>

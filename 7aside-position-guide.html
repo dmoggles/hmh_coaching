@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7-a-Side Position Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pitch: #1a6b3c;
+    --pitch-light: #1e7d47;
+    --gold: #f0c040;
+    --red: #e03a3a;
+    --green: #3adb76;
+    --card-bg: #0f1f16;
+    --card-border: #2a4a35;
+    --text: #e8f5ee;
+    --muted: #7aab8a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a1510;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 32px 16px 48px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(240,192,64,0.25);
+    line-height: 1;
+  }
+
+  header p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .formation-strip {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  .pos-badge {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .pos-badge.active { color: var(--gold); border-color: var(--gold); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent, var(--gold));
+  }
+
+  .card-header {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .pos-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent, var(--gold));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    color: #0a1510;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .card-title h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .card-title span {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .phases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .phase {
+    padding: 16px 18px;
+  }
+
+  .phase:first-child {
+    border-right: 1px solid var(--card-border);
+  }
+
+  .phase-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .phase-label.in { color: var(--green); }
+  .phase-label.out { color: #e07050; }
+
+  .phase-label::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .rules { list-style: none; }
+
+  .rules li {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+    color: #c8e0d0;
+  }
+
+  .rules li:last-child { border-bottom: none; }
+
+  .rules li .do {
+    color: var(--green);
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .rules li .dont {
+    color: var(--red);
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--card-border);
+    margin: 0 18px;
+  }
+
+  .key-trait {
+    padding: 10px 18px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .key-trait strong {
+    color: var(--accent, var(--gold));
+    font-style: normal;
+  }
+
+  .glossary {
+    max-width: 1200px;
+    margin: 48px auto 0;
+  }
+
+  .glossary-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .glossary-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+
+  .glossary-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--card-border);
+  }
+
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+  }
+
+  .glossary-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .glossary-term {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+
+  .glossary-def {
+    font-size: 0.78rem;
+    color: #c8e0d0;
+    line-height: 1.45;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>7-a-Side Position Guide</h1>
+  <p>2 · 3 · 1 System — In &amp; Out of Possession</p>
+</header>
+
+<div class="formation-strip">
+  <div class="pos-badge">GK</div>
+  <div class="pos-badge active">CB · CB</div>
+  <div class="pos-badge active">Wide CM · DM · Wide CM</div>
+  <div class="pos-badge active">ST</div>
+</div>
+
+<div class="grid">
+
+  <!-- GOALKEEPER -->
+  <div class="card" style="--accent: #7aabff;">
+    <div class="card-header">
+      <div class="pos-icon" style="background:#7aabff;">GK</div>
+      <div class="card-title">
+        <h2>Goalkeeper</h2>
+        <span>Last line &amp; first attacker</span>
+      </div>
+    </div>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-label in">IN POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Distribute quickly to wide areas</li>
+          <li><span class="do">DO</span> Act as sweeper — come off line for through balls</li>
+          <li><span class="do">DO</span> Give the CBs a short option when pressed</li>
+          <li><span class="dont">DON'T</span> Hold the ball — play fast</li>
+          <li><span class="dont">DON'T</span> Always play short — vary the outlet</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-label out">OUT OF POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Set your position early — don't wait</li>
+          <li><span class="do">DO</span> Communicate constantly with CBs</li>
+          <li><span class="do">DO</span> Narrow the angle on 1v1s</li>
+          <li><span class="dont">DON'T</span> Come too far off your line unless certain</li>
+          <li><span class="dont">DON'T</span> Go to ground too early</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider">
+    <p class="key-trait"><strong>Key trait:</strong> Distribution is your superpower — you start every attack</p>
+  </div>
+
+  <!-- CENTRE BACKS -->
+  <div class="card" style="--accent: #a07aff;">
+    <div class="card-header">
+      <div class="pos-icon" style="background:#a07aff;">CB</div>
+      <div class="card-title">
+        <h2>Centre Backs</h2>
+        <span>Foundation of the system</span>
+      </div>
+    </div>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-label in">IN POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Be comfortable on the ball — you'll get pressed</li>
+          <li><span class="do">DO</span> Use the DM as your primary reset option</li>
+          <li><span class="do">DO</span> Split wide to give width when GK has the ball</li>
+          <li><span class="dont">DON'T</span> Both step forward at the same time</li>
+          <li><span class="dont">DON'T</span> Force it — recycle if nothing is on</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-label out">OUT OF POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Hold your line — don't both chase</li>
+          <li><span class="do">DO</span> Communicate — one pushes, one covers</li>
+          <li><span class="do">DO</span> Stay goalside and don't be dragged wide</li>
+          <li><span class="dont">DON'T</span> Follow the striker's run into midfield</li>
+          <li><span class="dont">DON'T</span> Leave space in behind with a high line</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider">
+    <p class="key-trait"><strong>Key trait:</strong> Composure under pressure — if you panic, the whole team panics</p>
+  </div>
+
+  <!-- DM -->
+  <div class="card" style="--accent: var(--gold);">
+    <div class="card-header">
+      <div class="pos-icon">DM</div>
+      <div class="card-title">
+        <h2>Defensive Mid</h2>
+        <span>The anchor — makes everything work</span>
+      </div>
+    </div>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-label in">IN POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Stay between the CBs and wide mids — always available</li>
+          <li><span class="do">DO</span> Receive, turn, and play forward quickly</li>
+          <li><span class="do">DO</span> Shift laterally to stay in the passing lane</li>
+          <li><span class="dont">DON'T</span> Follow the wide mids forward</li>
+          <li><span class="dont">DON'T</span> Drift wide — own the central corridor</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-label out">OUT OF POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Cover when a wide CM hasn't tracked back</li>
+          <li><span class="do">DO</span> Win second balls — be aggressive</li>
+          <li><span class="do">DO</span> Communicate — tell CBs when you're covering</li>
+          <li><span class="dont">DON'T</span> Ball-watch — track runners through the middle</li>
+          <li><span class="dont">DON'T</span> Commit to pressing and leave the centre empty</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider">
+    <p class="key-trait"><strong>Key trait:</strong> The anchor that gives the wide mids their freedom — protect this space at all costs</p>
+  </div>
+
+  <!-- WIDE CM -->
+  <div class="card" style="--accent: #3adb76;">
+    <div class="card-header">
+      <div class="pos-icon" style="background:#3adb76;">WM</div>
+      <div class="card-title">
+        <h2>Wide Midfielders</h2>
+        <span>Engine of attack &amp; defensive discipline</span>
+      </div>
+    </div>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-label in">IN POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Push high and wide — stretch the opposition</li>
+          <li><span class="do">DO</span> Look to arrive late into the box</li>
+          <li><span class="do">DO</span> Read when it's safe to go — secure possession first</li>
+          <li><span class="dont">DON'T</span> Both push forward at the same time</li>
+          <li><span class="dont">DON'T</span> Stay glued to the touchline — cut inside too</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-label out">OUT OF POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Track back immediately on losing the ball</li>
+          <li><span class="do">DO</span> Get into your defensive position within 3 seconds</li>
+          <li><span class="do">DO</span> Press the wide CB if the ball goes there</li>
+          <li><span class="dont">DON'T</span> Assume the DM will cover for you</li>
+          <li><span class="dont">DON'T</span> Ball-watch — track the run on your side</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider">
+    <p class="key-trait"><strong>Key trait:</strong> Your freedom in possession is earned by your work rate out of it</p>
+  </div>
+
+  <!-- STRIKER -->
+  <div class="card" style="--accent: #e03a3a;">
+    <div class="card-header">
+      <div class="pos-icon" style="background:#e03a3a;">ST</div>
+      <div class="card-title">
+        <h2>Striker</h2>
+        <span>Press trigger &amp; finisher</span>
+      </div>
+    </div>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-label in">IN POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Hold up play — give wide mids time to arrive</li>
+          <li><span class="do">DO</span> Combine quickly with the attacking mid behind you</li>
+          <li><span class="do">DO</span> Make runs in behind to stretch the defence</li>
+          <li><span class="dont">DON'T</span> Drop too deep — you'll crowd the midfield</li>
+          <li><span class="dont">DON'T</span> Hold the ball too long in tight spaces</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-label out">OUT OF POSSESSION</div>
+        <ul class="rules">
+          <li><span class="do">DO</span> Press the first CB to trigger the team's shape</li>
+          <li><span class="do">DO</span> Force the opposition to play one way — show them outside</li>
+          <li><span class="do">DO</span> Be the signal — if you press, everyone presses</li>
+          <li><span class="dont">DON'T</span> Sprint wildly — press with a purpose</li>
+          <li><span class="dont">DON'T</span> Give up when the press is beaten — reset quickly</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider">
+    <p class="key-trait"><strong>Key trait:</strong> You set the tempo for the whole team's defensive shape — your press starts everything</p>
+  </div>
+
+</div>
+
+<section class="glossary">
+  <div class="glossary-header"><h2>Glossary of Terms</h2></div>
+  <div class="glossary-grid">
+    <div class="glossary-item"><span class="glossary-term">Anchor</span><span class="glossary-def">A defensive midfielder who holds a fixed central position, protecting the defence and providing a reliable passing option.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Box-to-Box</span><span class="glossary-def">A midfielder who contributes both defensively and offensively, covering the full length of the pitch.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Central Corridor</span><span class="glossary-def">The vertical strip through the middle of the pitch. The most dangerous area to concede space in 7-a-side.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Closing Down</span><span class="glossary-def">Pressing the player on the ball to reduce their time and options, forcing a mistake or backwards pass.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Compactness</span><span class="glossary-def">Keeping the team's shape tight so there are no large gaps between players for the opposition to exploit.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Cover</span><span class="glossary-def">When a teammate positions themselves to support a player who is pressing or has been beaten, providing a second line of defence.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Defensive Block</span><span class="glossary-def">A compact defensive shape where the team sits in organised lines, making it hard for the opposition to play through.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Defensive Line</span><span class="glossary-def">The horizontal line your defenders hold. Pushing it high compresses space; dropping it deeper protects against balls in behind.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Distribution</span><span class="glossary-def">How the goalkeeper plays the ball out — passes, throws, or kicks to restart an attack.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Hold-Up Play</span><span class="glossary-def">When a striker receives with their back to goal and retains possession long enough for teammates to arrive in support.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Late Run</span><span class="glossary-def">A run into the box timed to arrive just as the ball is delivered — hard to track because it comes from deep.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Overload</span><span class="glossary-def">Creating a numerical advantage in one area — e.g. two attackers against one defender on the flank.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Passing Lane</span><span class="glossary-def">The open channel between players through which a pass can be played. Moving into a passing lane makes you available.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Pivot</span><span class="glossary-def">A central player (usually the DM) through whom the team plays to switch direction or relieve pressure.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Press Trigger</span><span class="glossary-def">A signal — often the striker's first press — that tells the whole team to push up and press simultaneously.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Recycle</span><span class="glossary-def">Playing the ball backwards or sideways when no forward option is on, to reset and try again from a better position.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Reset</span><span class="glossary-def">Quickly re-organising into the team's shape after the ball is lost or won.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Shape</span><span class="glossary-def">The team's formation and how players are positioned relative to each other. Maintaining shape means holding those positions.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Show Outside</span><span class="glossary-def">Pressing an opponent to steer them towards the touchline, away from the dangerous central areas.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Sweeper-Keeper</span><span class="glossary-def">A goalkeeper who comes off their line to act as an extra defender, intercepting through balls behind the defensive line.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Third-Man Run</span><span class="glossary-def">A run made by a third player during a 1-2 combination, arriving unexpectedly into space.</span></div>
+    <div class="glossary-item"><span class="glossary-term">Transition</span><span class="glossary-def">The moment the ball changes hands. The most dangerous moment in 7-a-side — the split second after winning or losing possession.</span></div>
+  </div>
+</section>
+
+<footer>7-a-Side · 2-3-1 System · Print or share with your squad</footer>
+
+</body>
+</html>

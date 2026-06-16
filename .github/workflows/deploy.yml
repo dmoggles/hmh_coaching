@@ -8,6 +8,7 @@ on:
       - 'player_assessment/frontend/index.html'
       - 'player_assessment/frontend/vite.config.js'
       - 'player_assessment/frontend/package*.json'
+      - 'player_assessment/frontend/.env*'
       - '.github/workflows/deploy.yml'
 
 jobs:

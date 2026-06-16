@@ -43,4 +43,3 @@ jobs:
           target: "/var/www/player_assessment"
           strip_components: 3
           overwrite: true
-          rm: true

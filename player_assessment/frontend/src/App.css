@@ -75,29 +75,70 @@ header h1 { font-size: 1.6rem; color: var(--green); }
   padding: 14px 16px;
   margin-bottom: 10px;
 }
-.skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.skill-label { font-weight: 600; font-size: 0.95rem; }
-.current-score { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
-.descriptor {
-  font-size: 0.83rem; color: var(--muted); margin-bottom: 10px;
-  line-height: 1.45; border-left: 3px solid var(--border); padding-left: 10px;
-}
-.active-descriptor { border-color: var(--accent); color: var(--text); }
+.skill-header { margin-bottom: 12px; }
+.skill-label { font-weight: 700; font-size: 1.05rem; }
 
-.scale-buttons { display: flex; gap: 8px; }
-.score-btn {
-  width: 40px; height: 40px;
+.option-buttons { display: flex; flex-direction: column; gap: 8px; }
+
+.option-btn {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
   border: 2px solid var(--border);
   background: var(--bg);
-  border-radius: 8px;
-  font-size: 1rem; font-weight: 600;
+  border-radius: 10px;
+  padding: 0;
   cursor: pointer;
   transition: all 0.15s;
   color: var(--text);
+  overflow: hidden;
 }
-.score-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-.score-btn.selected { background: var(--green); border-color: var(--green); color: #fff; }
-.score-btn:disabled { cursor: default; opacity: 0.6; }
+.option-btn:hover:not(:disabled) { border-color: var(--accent); }
+.option-btn:disabled { cursor: default; opacity: 0.7; }
+
+.option-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: var(--surface);
+  border-right: 2px solid var(--border);
+  color: var(--muted);
+}
+
+.option-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 12px 14px 12px 0;
+}
+.option-anchor-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+.option-descriptor { font-size: 0.92rem; line-height: 1.4; }
+
+.option-intermediate-text {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  padding: 10px 14px 10px 0;
+}
+.option-btn.intermediate .option-num { font-size: 1.1rem; }
+
+/* Selected state */
+.option-btn.selected { border-color: var(--green); background: #eaf5ee; }
+.option-btn.selected .option-num { background: var(--green); color: #fff; border-right-color: var(--green); }
+.option-btn.selected .option-anchor-label { color: var(--green); }
 
 .submit-btn {
   display: block;

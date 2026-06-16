@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 const SCALE = [1, 2, 3, 4, 5]
 const ANCHOR_LABELS = { 1: 'Developing', 3: 'Achieving', 5: 'Excelling' }
 
@@ -19,34 +17,32 @@ export default function SkillForm({ matrix, position, ratings, onChange, readOnl
               <div key={skill.id} className="skill-row">
                 <div className="skill-header">
                   <span className="skill-label">{skill.label}</span>
-                  {score && (
-                    <span className="current-score">
-                      {ANCHOR_LABELS[score] ? `${score} – ${ANCHOR_LABELS[score]}` : score}
-                    </span>
-                  )}
                 </div>
-                {skill.descriptors[score] && (
-                  <p className="descriptor active-descriptor">{skill.descriptors[score]}</p>
-                )}
-                <div className="scale-buttons">
-                  {SCALE.map(n => (
-                    <button
-                      key={n}
-                      type="button"
-                      disabled={readOnly}
-                      className={`score-btn ${score === n ? 'selected' : ''}`}
-                      title={skill.descriptors[n] ?? ''}
-                      onClick={() => !readOnly && onChange(skill.id, score === n ? null : n)}
-                    >
-                      {n}
-                    </button>
-                  ))}
+                <div className="option-buttons">
+                  {SCALE.map(n => {
+                    const descriptor = skill.descriptors[n]
+                    const isAnchor = descriptor !== undefined
+                    return (
+                      <button
+                        key={n}
+                        type="button"
+                        disabled={readOnly}
+                        className={`option-btn ${isAnchor ? 'anchor' : 'intermediate'} ${score === n ? 'selected' : ''}`}
+                        onClick={() => !readOnly && onChange(skill.id, score === n ? null : n)}
+                      >
+                        <span className="option-num">{n}</span>
+                        {isAnchor ? (
+                          <span className="option-text">
+                            <span className="option-anchor-label">{ANCHOR_LABELS[n]}</span>
+                            <span className="option-descriptor">{descriptor}</span>
+                          </span>
+                        ) : (
+                          <span className="option-text option-intermediate-text">In between</span>
+                        )}
+                      </button>
+                    )
+                  })}
                 </div>
-                {score && skill.descriptors[score] === undefined && (
-                  <p className="descriptor muted">
-                    Between {skill.descriptors[score - 1] ? ANCHOR_LABELS[score - 1] ?? '' : ''} and {ANCHOR_LABELS[score + 1] ?? ''}
-                  </p>
-                )}
               </div>
             )
           })}

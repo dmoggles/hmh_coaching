@@ -1,0 +1,4 @@
+player_assessment/backend/.venv/
+player_assessment/backend/.env
+player_assessment/frontend/node_modules/
+player_assessment/frontend/.env.local

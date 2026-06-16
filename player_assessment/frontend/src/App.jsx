@@ -5,7 +5,7 @@ import './App.css'
 
 export default function App() {
   return (
-    <BrowserRouter basename="/hmh_coaching/player_assessment/dist">
+    <BrowserRouter basename="/player_assessment">
       <Routes>
         <Route path="/" element={<PlayerPage />} />
         <Route path="/coach" element={<CoachPage />} />

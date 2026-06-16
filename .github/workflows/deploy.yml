@@ -1,13 +1,20 @@
-name: Build and deploy player assessment frontend
+name: Build and deploy player assessment frontend to VPS
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'player_assessment/frontend/src/**'
+      - 'player_assessment/frontend/index.html'
+      - 'player_assessment/frontend/vite.config.js'
+      - 'player_assessment/frontend/package*.json'
+      - 'player_assessment/frontend/.env*'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -25,16 +32,16 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: player_assessment/frontend
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
-      - name: Commit built files to main
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
-          rm -rf player_assessment/dist
-          cp -r player_assessment/frontend/dist player_assessment/dist
-          git add player_assessment/dist
-          git diff --cached --quiet || git commit -m "chore: rebuild player assessment frontend [skip ci]"
-          git push origin main
+      - name: Deploy to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "player_assessment/frontend/dist/*"
+          target: "/var/www/player_assessment"
+          strip_components: 3
+          overwrite: true
+          rm: true

@@ -2,16 +2,13 @@ import json
 from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.requests import Request
 from .config import settings
 from .database import engine, Base
 from .routers import periods, assessments
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Bob-Tails Assessment API", root_path="/assessment-api")
+app = FastAPI(title="Bob-Tails Assessment API", redirect_slashes=False)
 
 origins = [o.strip() for o in settings.allowed_origins.split(",")]
 app.add_middleware(

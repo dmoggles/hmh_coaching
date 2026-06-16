@@ -8,12 +8,12 @@ from ..auth import require_coach
 router = APIRouter(prefix="/periods", tags=["periods"])
 
 
-@router.get("/", response_model=list[PeriodOut])
+@router.get("", response_model=list[PeriodOut])
 def list_periods(db: Session = Depends(get_db)):
     return db.query(Period).order_by(Period.created_at.desc()).all()
 
 
-@router.post("/", response_model=PeriodOut)
+@router.post("", response_model=PeriodOut)
 def create_period(body: PeriodCreate, db: Session = Depends(get_db), _=Depends(require_coach)):
     if db.query(Period).filter(Period.label == body.label).first():
         raise HTTPException(400, "Period with this label already exists")

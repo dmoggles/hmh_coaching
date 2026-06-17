@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getSkillMatrix, getPeriods, getPlayersForPeriod, getCoachAssessment, getComparison, getPeriodAssessments, submitCoachAssessment, createPeriod } from './api'
 import SkillForm from './SkillForm'
 import ComparisonView from './ComparisonView'
+import SummaryView from './SummaryView'
 import HeatmapView from './HeatmapView'
 import { ALL_POSITIONS, POSITION_LABELS, POSITION_ABBR, FREQUENCIES, skillSetFor, sectionsFor, norm } from './matrix'
 
@@ -47,7 +48,7 @@ export default function CoachPage() {
   }, [authed, periodId, apiKey])
 
   useEffect(() => {
-    if (mode === 'compare' && periodId && playerName) {
+    if ((mode === 'compare' || mode === 'summary') && periodId && playerName) {
       setComparison(null)
       getComparison(periodId, playerName, apiKey).then(setComparison).catch(() => {})
     }
@@ -234,12 +235,23 @@ export default function CoachPage() {
                     >
                       Compare
                     </button>
+                    <button
+                      type="button"
+                      className={mode === 'summary' ? 'active' : ''}
+                      onClick={() => setMode('summary')}
+                    >
+                      Summary
+                    </button>
                   </div>
                 </div>
 
-                {mode === 'compare' ? (
+                {mode === 'compare' || mode === 'summary' ? (
                   comparison ? (
-                    <ComparisonView matrix={matrix} coach={comparison.coach} player={comparison.player} />
+                    mode === 'compare' ? (
+                      <ComparisonView matrix={matrix} coach={comparison.coach} player={comparison.player} />
+                    ) : (
+                      <SummaryView matrix={matrix} coach={comparison.coach} player={comparison.player} />
+                    )
                   ) : (
                     <p className="muted">Loading…</p>
                   )

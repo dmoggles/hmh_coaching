@@ -200,9 +200,11 @@ export default function CoachPage() {
                       value={primaryPosition}
                       onChange={e => {
                         const next = e.target.value
+                        // Only clear ratings when the skill set itself changes
+                        // (GK uses different skills than outfield roles).
+                        if (skillSetFor(next) !== skillSetFor(primaryPosition)) setRatings({})
                         setPrimaryPosition(next)
                         if (secondaryPosition === next) setSecondaryPosition('')
-                        setRatings({})
                       }}
                     >
                       {POSITIONS.map(p => <option key={p} value={p}>{p}</option>)}

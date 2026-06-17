@@ -59,16 +59,22 @@ def submit_coach_assessment(
         Assessment.assessor == "coach",
     ).first()
 
+    position = "goalkeeper" if body.primary_position == "Goalkeeper" else "outfield"
+
     if existing:
         _upsert_ratings(db, existing, body.ratings)
-        existing.position = body.position
+        existing.position = position
+        existing.primary_position = body.primary_position
+        existing.secondary_position = body.secondary_position
         db.commit()
         db.refresh(existing)
         return existing
 
     assessment = Assessment(
         player_name=body.player_name,
-        position=body.position,
+        position=position,
+        primary_position=body.primary_position,
+        secondary_position=body.secondary_position,
         period_id=body.period_id,
         assessor="coach",
     )
@@ -87,7 +93,20 @@ def get_assessments_for_period(period_id: int, db: Session = Depends(get_db), _=
 
 @router.get("/period/{period_id}/players")
 def get_player_names_for_period(period_id: int, db: Session = Depends(get_db), _=Depends(require_coach)):
-    rows = db.query(Assessment.player_name, Assessment.position).filter(
+    rows = db.query(
+        Assessment.player_name,
+        Assessment.position,
+        Assessment.primary_position,
+        Assessment.secondary_position,
+    ).filter(
         Assessment.period_id == period_id
     ).distinct().all()
-    return [{"player_name": r.player_name, "position": r.position} for r in rows]
+    return [
+        {
+            "player_name": r.player_name,
+            "position": r.position,
+            "primary_position": r.primary_position,
+            "secondary_position": r.secondary_position,
+        }
+        for r in rows
+    ]

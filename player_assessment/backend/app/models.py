@@ -23,7 +23,9 @@ class Assessment(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     player_name = Column(String(100), nullable=False, index=True)
-    position = Column(String(20), nullable=False)  # outfield | goalkeeper
+    position = Column(String(20), nullable=False)  # outfield | goalkeeper (drives skill set)
+    primary_position = Column(String(20), nullable=True)  # Goalkeeper | Defender | Midfielder | Winger | Striker
+    secondary_position = Column(String(20), nullable=True)
     period_id = Column(Integer, ForeignKey("periods.id"), nullable=False)
     assessor = Column(String(10), nullable=False)  # coach | player
     created_at = Column(DateTime(timezone=True), server_default=func.now())

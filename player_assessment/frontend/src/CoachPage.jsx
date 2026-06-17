@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react'
 import { getSkillMatrix, getPeriods, getPlayersForPeriod, submitCoachAssessment, createPeriod } from './api'
 import SkillForm from './SkillForm'
 
+const POSITIONS = ['Goalkeeper', 'Defender', 'Midfielder', 'Winger', 'Striker']
+const POS_ABBR = { Goalkeeper: 'GK', Defender: 'DEF', Midfielder: 'MID', Winger: 'WNG', Striker: 'ST' }
+
+const skillSetFor = (primary) => (primary === 'Goalkeeper' ? 'goalkeeper' : 'outfield')
+
 export default function CoachPage() {
   const [apiKey, setApiKey] = useState(localStorage.getItem('coach_api_key') ?? '')
   const [authed, setAuthed] = useState(false)
@@ -10,12 +15,15 @@ export default function CoachPage() {
   const [periodId, setPeriodId] = useState('')
   const [players, setPlayers] = useState([])
   const [playerName, setPlayerName] = useState('')
-  const [position, setPosition] = useState('outfield')
+  const [primaryPosition, setPrimaryPosition] = useState('Defender')
+  const [secondaryPosition, setSecondaryPosition] = useState('')
   const [ratings, setRatings] = useState({})
   const [status, setStatus] = useState('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const [newPeriodLabel, setNewPeriodLabel] = useState('')
   const [showNewPeriod, setShowNewPeriod] = useState(false)
+
+  const position = skillSetFor(primaryPosition)
 
   const login = async () => {
     try {
@@ -35,9 +43,10 @@ export default function CoachPage() {
     }
   }, [authed, periodId, apiKey])
 
-  const handlePlayerSelect = (name, pos) => {
-    setPlayerName(name)
-    setPosition(pos)
+  const handlePlayerSelect = (p) => {
+    setPlayerName(p.player_name)
+    setPrimaryPosition(p.primary_position ?? (p.position === 'goalkeeper' ? 'Goalkeeper' : 'Defender'))
+    setSecondaryPosition(p.secondary_position ?? '')
     setRatings({})
     setStatus('idle')
   }
@@ -60,7 +69,8 @@ export default function CoachPage() {
       }))
       await submitCoachAssessment({
         player_name: playerName.trim(),
-        position,
+        primary_position: primaryPosition,
+        secondary_position: secondaryPosition || null,
         period_id: Number(periodId),
         ratings: ratingList,
       }, apiKey)
@@ -145,10 +155,12 @@ export default function CoachPage() {
                 key={p.player_name}
                 type="button"
                 className={`player-btn ${playerName === p.player_name ? 'active' : ''}`}
-                onClick={() => handlePlayerSelect(p.player_name, p.position)}
+                onClick={() => handlePlayerSelect(p)}
               >
                 {p.player_name}
-                <span className="pos-tag">{p.position === 'goalkeeper' ? 'GK' : 'OF'}</span>
+                <span className="pos-tag">
+                  {POS_ABBR[p.primary_position] ?? (p.position === 'goalkeeper' ? 'GK' : 'OF')}
+                </span>
               </button>
             ))}
             <div className="new-player">
@@ -158,10 +170,6 @@ export default function CoachPage() {
                 value={playerName}
                 onChange={e => setPlayerName(e.target.value)}
               />
-              <select value={position} onChange={e => { setPosition(e.target.value); setRatings({}) }}>
-                <option value="outfield">Outfield</option>
-                <option value="goalkeeper">GK</option>
-              </select>
             </div>
           </aside>
 
@@ -169,6 +177,36 @@ export default function CoachPage() {
             {playerName && matrix ? (
               <form onSubmit={handleSubmit}>
                 <h2>{playerName}</h2>
+
+                <div className="position-fields">
+                  <div className="field">
+                    <label>Primary position</label>
+                    <select
+                      value={primaryPosition}
+                      onChange={e => {
+                        const next = e.target.value
+                        setPrimaryPosition(next)
+                        if (secondaryPosition === next) setSecondaryPosition('')
+                        setRatings({})
+                      }}
+                    >
+                      {POSITIONS.map(p => <option key={p} value={p}>{p}</option>)}
+                    </select>
+                  </div>
+                  <div className="field">
+                    <label>Secondary position <span className="optional">(optional)</span></label>
+                    <select
+                      value={secondaryPosition}
+                      onChange={e => setSecondaryPosition(e.target.value)}
+                    >
+                      <option value="">None</option>
+                      {POSITIONS.filter(p => p !== primaryPosition).map(p => (
+                        <option key={p} value={p}>{p}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
                 <SkillForm
                   matrix={matrix}
                   position={position}

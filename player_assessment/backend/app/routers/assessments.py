@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from ..database import get_db
 from ..models import Assessment, Rating, Period
-from ..schemas import PlayerAssessmentCreate, CoachAssessmentCreate, AssessmentOut
+from ..schemas import PlayerAssessmentCreate, CoachAssessmentCreate, AssessmentOut, ComparisonOut
 from ..auth import require_coach
 
 router = APIRouter(prefix="/assessments", tags=["assessments"])
@@ -99,6 +99,23 @@ def get_coach_assessment(
         Assessment.period_id == period_id,
         Assessment.assessor == "coach",
     ).first()
+
+
+@router.get("/compare", response_model=ComparisonOut)
+def compare_assessments(
+    period_id: int,
+    player_name: str,
+    db: Session = Depends(get_db),
+    _=Depends(require_coach),
+):
+    rows = db.query(Assessment).filter(
+        Assessment.player_name == player_name,
+        Assessment.period_id == period_id,
+    ).all()
+    return {
+        "coach": next((a for a in rows if a.assessor == "coach"), None),
+        "player": next((a for a in rows if a.assessor == "player"), None),
+    }
 
 
 @router.get("/period/{period_id}", response_model=list[AssessmentOut])

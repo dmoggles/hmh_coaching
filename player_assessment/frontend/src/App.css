@@ -186,6 +186,42 @@ header h1 { font-size: 1.6rem; color: var(--green); }
 
 .coach-layout main h2 { margin-bottom: 16px; }
 
+/* Assess / Compare toggle */
+.cmp-toggle { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.toggle-group { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.toggle-group button {
+  padding: 7px 16px; border: none; background: var(--surface); color: var(--muted);
+  cursor: pointer; font-size: 0.9rem; font-weight: 600;
+}
+.toggle-group button.active { background: var(--green); color: #fff; }
+
+/* Comparison table */
+.comparison-legend { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-size: 0.85rem; }
+.legend-chip { padding: 3px 10px; border-radius: 12px; font-weight: 600; font-size: 0.78rem; color: #fff; }
+.coach-chip { background: var(--green); color: #fff; }
+.player-chip { background: #3a7ca5; color: #fff; }
+
+.cmp-table { display: flex; flex-direction: column; gap: 2px; }
+.cmp-row {
+  display: grid; grid-template-columns: 1fr 70px 70px 60px;
+  align-items: center; gap: 8px;
+  padding: 8px 12px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.cmp-head { background: transparent; border: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); padding-bottom: 2px; }
+.cmp-head .cmp-cell { text-align: center; }
+.cmp-skill { font-size: 0.9rem; font-weight: 500; }
+.cmp-cell { text-align: center; }
+.cmp-score {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 8px; font-weight: 700; font-size: 0.95rem;
+}
+.cmp-score.empty { background: var(--bg); color: var(--muted); font-weight: 400; }
+.cmp-delta { font-weight: 700; font-size: 0.95rem; }
+.delta-pos { color: var(--green); }
+.delta-neg { color: var(--error); }
+.delta-zero { color: var(--muted); }
+
 .player-list { display: flex; flex-direction: column; gap: 4px; }
 .player-list h3 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 8px; }
 .player-btn {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { getSkillMatrix, getPeriods, getPlayersForPeriod, getCoachAssessment, submitCoachAssessment, createPeriod } from './api'
+import { getSkillMatrix, getPeriods, getPlayersForPeriod, getCoachAssessment, getComparison, submitCoachAssessment, createPeriod } from './api'
 import SkillForm from './SkillForm'
+import ComparisonView from './ComparisonView'
 
 const POSITIONS = ['Goalkeeper', 'Defender', 'Midfielder', 'Winger', 'Striker']
 const POS_ABBR = { Goalkeeper: 'GK', Defender: 'DEF', Midfielder: 'MID', Winger: 'WNG', Striker: 'ST' }
@@ -22,6 +23,8 @@ export default function CoachPage() {
   const [errorMsg, setErrorMsg] = useState('')
   const [newPeriodLabel, setNewPeriodLabel] = useState('')
   const [showNewPeriod, setShowNewPeriod] = useState(false)
+  const [mode, setMode] = useState('assess') // assess | compare
+  const [comparison, setComparison] = useState(null)
 
   const position = skillSetFor(primaryPosition)
 
@@ -42,6 +45,13 @@ export default function CoachPage() {
       getPlayersForPeriod(periodId, apiKey).then(setPlayers).catch(() => {})
     }
   }, [authed, periodId, apiKey])
+
+  useEffect(() => {
+    if (mode === 'compare' && periodId && playerName) {
+      setComparison(null)
+      getComparison(periodId, playerName, apiKey).then(setComparison).catch(() => {})
+    }
+  }, [mode, periodId, playerName, apiKey])
 
   const handlePlayerSelect = async (p) => {
     setPlayerName(p.player_name)
@@ -190,9 +200,35 @@ export default function CoachPage() {
 
           <main>
             {playerName && matrix ? (
-              <form onSubmit={handleSubmit}>
-                <h2>{playerName}</h2>
+              <>
+                <div className="cmp-toggle">
+                  <h2>{playerName}</h2>
+                  <div className="toggle-group">
+                    <button
+                      type="button"
+                      className={mode === 'assess' ? 'active' : ''}
+                      onClick={() => setMode('assess')}
+                    >
+                      Assess
+                    </button>
+                    <button
+                      type="button"
+                      className={mode === 'compare' ? 'active' : ''}
+                      onClick={() => setMode('compare')}
+                    >
+                      Compare
+                    </button>
+                  </div>
+                </div>
 
+                {mode === 'compare' ? (
+                  comparison ? (
+                    <ComparisonView matrix={matrix} coach={comparison.coach} player={comparison.player} />
+                  ) : (
+                    <p className="muted">Loading…</p>
+                  )
+                ) : (
+              <form onSubmit={handleSubmit}>
                 <div className="position-fields">
                   <div className="field">
                     <label>Primary position</label>
@@ -240,6 +276,8 @@ export default function CoachPage() {
                   {status === 'submitting' ? 'Saving…' : 'Save Coach Assessment'}
                 </button>
               </form>
+                )}
+              </>
             ) : (
               <p className="muted">Select or type a player name to begin.</p>
             )}

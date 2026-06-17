@@ -62,3 +62,8 @@ class AssessmentOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class ComparisonOut(BaseModel):
+    coach: Optional[AssessmentOut]
+    player: Optional[AssessmentOut]

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { getSkillMatrix, getPeriods, getPlayersForPeriod, getCoachAssessment, getComparison, submitCoachAssessment, createPeriod } from './api'
+import { getSkillMatrix, getPeriods, getPlayersForPeriod, getCoachAssessment, getComparison, getPeriodAssessments, submitCoachAssessment, createPeriod } from './api'
 import SkillForm from './SkillForm'
 import ComparisonView from './ComparisonView'
+import HeatmapView from './HeatmapView'
 
 const POSITIONS = ['Goalkeeper', 'Defender', 'Midfielder', 'Winger', 'Striker']
 const POS_ABBR = { Goalkeeper: 'GK', Defender: 'DEF', Midfielder: 'MID', Winger: 'WNG', Striker: 'ST' }
@@ -25,6 +26,8 @@ export default function CoachPage() {
   const [showNewPeriod, setShowNewPeriod] = useState(false)
   const [mode, setMode] = useState('assess') // assess | compare
   const [comparison, setComparison] = useState(null)
+  const [view, setView] = useState('players') // players | heatmap
+  const [periodAssessments, setPeriodAssessments] = useState([])
 
   const position = skillSetFor(primaryPosition)
 
@@ -52,6 +55,12 @@ export default function CoachPage() {
       getComparison(periodId, playerName, apiKey).then(setComparison).catch(() => {})
     }
   }, [mode, periodId, playerName, apiKey])
+
+  useEffect(() => {
+    if (view === 'heatmap' && periodId) {
+      getPeriodAssessments(periodId, apiKey).then(setPeriodAssessments).catch(() => {})
+    }
+  }, [view, periodId, apiKey])
 
   const handlePlayerSelect = async (p) => {
     setPlayerName(p.player_name)
@@ -145,6 +154,11 @@ export default function CoachPage() {
         {matrix && <p className="subtitle">{matrix.meta.team} · {matrix.meta.season}</p>}
       </header>
 
+      <div className="view-tabs">
+        <button type="button" className={view === 'players' ? 'active' : ''} onClick={() => setView('players')}>Players</button>
+        <button type="button" className={view === 'heatmap' ? 'active' : ''} onClick={() => setView('heatmap')}>Heatmap</button>
+      </div>
+
       <div className="coach-controls">
         <div className="field">
           <label>Period</label>
@@ -171,7 +185,11 @@ export default function CoachPage() {
         )}
       </div>
 
-      {periodId && (
+      {periodId && view === 'heatmap' && matrix && (
+        <HeatmapView matrix={matrix} assessments={periodAssessments} />
+      )}
+
+      {periodId && view === 'players' && (
         <div className="coach-layout">
           <aside className="player-list">
             <h3>Players</h3>

@@ -171,6 +171,35 @@ header h1 { font-size: 1.6rem; color: var(--green); }
 
 .login-page { max-width: 400px; }
 
+.view-tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 2px solid var(--border); }
+.view-tabs button {
+  padding: 8px 18px; border: none; background: none; cursor: pointer;
+  font-size: 0.95rem; font-weight: 600; color: var(--muted);
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+}
+.view-tabs button.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* Heatmap */
+.heatmap-controls { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.heatmap-scroll { overflow-x: auto; }
+.heatmap-table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+.hm-skill-head, .hm-col-head {
+  position: sticky; top: 0;
+  background: var(--surface); padding: 8px; font-size: 0.78rem;
+  text-align: center; border-bottom: 2px solid var(--border);
+}
+.hm-skill-head { text-align: left; }
+.hm-col-head { min-width: 56px; }
+.hm-col-label { display: block; font-weight: 700; }
+.hm-col-sub { display: block; font-size: 0.7rem; color: var(--muted); font-weight: 400; }
+.hm-section-row td {
+  background: var(--bg); font-weight: 700; font-size: 0.72rem;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--green);
+  padding: 8px; border-bottom: 1px solid var(--border);
+}
+.hm-skill { padding: 6px 8px; white-space: nowrap; max-width: 280px; overflow: hidden; text-overflow: ellipsis; }
+.hm-cell { text-align: center; font-weight: 700; padding: 6px; border: 1px solid var(--bg); }
+
 .coach-controls { margin-bottom: 24px; }
 .link-btn { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.9rem; padding: 6px 0; }
 .inline-row { display: flex; gap: 8px; margin-top: 8px; }

@@ -1,5 +1,6 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from ..database import get_db
@@ -23,7 +24,7 @@ def submit_player_assessment(body: PlayerAssessmentCreate, db: Session = Depends
         raise HTTPException(404, "Period not found")
 
     existing = db.query(Assessment).filter(
-        Assessment.player_name == body.player_name,
+        func.lower(Assessment.player_name) == body.player_name.lower(),
         Assessment.period_id == body.period_id,
         Assessment.assessor == "player",
     ).first()
@@ -55,7 +56,7 @@ def submit_coach_assessment(
         raise HTTPException(404, "Period not found")
 
     existing = db.query(Assessment).filter(
-        Assessment.player_name == body.player_name,
+        func.lower(Assessment.player_name) == body.player_name.lower(),
         Assessment.period_id == body.period_id,
         Assessment.assessor == "coach",
     ).first()
@@ -90,7 +91,7 @@ def submit_coach_assessment(
 @router.get("/player/exists")
 def player_assessment_exists(period_id: int, player_name: str, db: Session = Depends(get_db)):
     exists = db.query(Assessment).filter(
-        Assessment.player_name == player_name,
+        func.lower(Assessment.player_name) == player_name.lower(),
         Assessment.period_id == period_id,
         Assessment.assessor == "player",
     ).first() is not None
@@ -105,7 +106,7 @@ def get_coach_assessment(
     _=Depends(require_coach),
 ):
     return db.query(Assessment).filter(
-        Assessment.player_name == player_name,
+        func.lower(Assessment.player_name) == player_name.lower(),
         Assessment.period_id == period_id,
         Assessment.assessor == "coach",
     ).first()
@@ -119,7 +120,7 @@ def compare_assessments(
     _=Depends(require_coach),
 ):
     rows = db.query(Assessment).filter(
-        Assessment.player_name == player_name,
+        func.lower(Assessment.player_name) == player_name.lower(),
         Assessment.period_id == period_id,
     ).all()
     return {
@@ -140,8 +141,9 @@ def get_player_names_for_period(period_id: int, db: Session = Depends(get_db), _
     # player's self-assessment so the list shows the coach's view of each player.
     by_name = {}
     for a in rows:
-        if a.player_name not in by_name or a.assessor == "coach":
-            by_name[a.player_name] = a
+        key = a.player_name.lower()
+        if key not in by_name or a.assessor == "coach":
+            by_name[key] = a
     return [
         {
             "player_name": a.player_name,

@@ -179,9 +179,12 @@ header h1 { font-size: 1.6rem; color: var(--green); }
 
 .coach-layout { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start; }
 
-.position-fields { display: flex; gap: 16px; margin: 12px 0 24px; }
+.position-fields { display: flex; gap: 16px; margin: 12px 0 24px; align-items: end; }
 .position-fields .field { flex: 1; }
+.position-fields .field label { white-space: nowrap; }
 .optional { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 0.78rem; }
+
+.coach-layout main h2 { margin-bottom: 16px; }
 
 .player-list { display: flex; flex-direction: column; gap: 4px; }
 .player-list h3 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 8px; }

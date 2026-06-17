@@ -1,12 +1,11 @@
-const SCALE = [1, 2, 3, 4, 5]
-const ANCHOR_LABELS = { 1: 'Developing', 3: 'Achieving', 5: 'Excelling' }
+import { sectionsFor, scalePoints, scaleAnchors } from './matrix'
 
 export const UNKNOWN = 'unknown'
 
 export default function SkillForm({ matrix, position, ratings, onChange, readOnly = false, allowUnknown = false }) {
-  const relevantSections = matrix.sections.filter(s =>
-    s.applies_to.includes(position)
-  )
+  const relevantSections = sectionsFor(matrix, position)
+  const SCALE = scalePoints(matrix)
+  const ANCHOR_LABELS = scaleAnchors(matrix)
 
   return (
     <div className="skill-form">

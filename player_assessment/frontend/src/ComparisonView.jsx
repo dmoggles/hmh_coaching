@@ -1,3 +1,5 @@
+import { sectionsFor } from './matrix'
+
 const toMap = (assessment) => {
   const map = {}
   if (assessment) {
@@ -9,7 +11,7 @@ const toMap = (assessment) => {
 export default function ComparisonView({ matrix, coach, player }) {
   // Pick the skill set from whichever assessment we have (prefer coach).
   const position = coach?.position ?? player?.position ?? 'outfield'
-  const sections = matrix.sections.filter(s => s.applies_to.includes(position))
+  const sections = sectionsFor(matrix, position)
 
   const coachMap = toMap(coach)
   const playerMap = toMap(player)

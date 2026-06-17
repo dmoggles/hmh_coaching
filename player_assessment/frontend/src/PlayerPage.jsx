@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getSkillMatrix, getPeriods, submitPlayerAssessment, checkPlayerSubmitted } from './api'
 import SkillForm from './SkillForm'
+import { sectionsFor } from './matrix'
 
 export default function PlayerPage() {
   const [matrix, setMatrix] = useState(null)
@@ -47,9 +48,7 @@ export default function PlayerPage() {
     setStatus('submitting')
     setErrorMsg('')
     try {
-      const allSkills = matrix.sections
-        .filter(s => s.applies_to.includes(position))
-        .flatMap(s => s.skills)
+      const allSkills = sectionsFor(matrix, position).flatMap(s => s.skills)
       const ratingList = allSkills.map(skill => {
         const raw = ratings[skill.id]
         // "I don't know" and untouched both store as a null score.

@@ -1,9 +1,5 @@
 import { useState } from 'react'
-
-const OUTFIELD_POSITIONS = ['Defender', 'Midfielder', 'Winger', 'Striker']
-const POS_ABBR = { Goalkeeper: 'GK', Defender: 'DEF', Midfielder: 'MID', Winger: 'WNG', Striker: 'ST' }
-
-const skillSetFor = (primary) => (primary === 'Goalkeeper' ? 'goalkeeper' : 'outfield')
+import { OUTFIELD_POSITIONS, POSITION_ABBR, sectionsFor, norm } from './matrix'
 
 // Continuous red -> amber -> green scale for scores 1..5
 const scoreColor = (score) => {
@@ -27,26 +23,26 @@ export default function HeatmapView({ matrix, assessments }) {
 
   // Coach assessments only, matching the chosen skill set.
   const subjects = assessments.filter(a => a.assessor === 'coach' && a.position === skillSet)
-  const sections = matrix.sections.filter(s => s.applies_to.includes(skillSet))
+  const sections = sectionsFor(matrix, skillSet)
 
   // Build columns + a value lookup: valueFor(skillId, columnKey) -> number|null
   let columns = []
   let valueFor = () => null
 
   if (level === 'individual') {
-    columns = subjects.map(a => ({ key: a.player_name, label: a.player_name, sub: POS_ABBR[a.primary_position] ?? '' }))
+    columns = subjects.map(a => ({ key: a.player_name, label: a.player_name, sub: POSITION_ABBR[norm(a.primary_position)] ?? '' }))
     const maps = Object.fromEntries(subjects.map(a => [a.player_name, ratingsToMap(a)]))
     valueFor = (skillId, key) => maps[key]?.[skillId] ?? null
   } else {
-    const buckets = skillSet === 'goalkeeper' ? ['Goalkeeper'] : OUTFIELD_POSITIONS
-    const present = buckets.filter(b => subjects.some(a => a.primary_position === b))
+    const buckets = skillSet === 'goalkeeper' ? ['goalkeeper'] : OUTFIELD_POSITIONS
+    const present = buckets.filter(b => subjects.some(a => norm(a.primary_position) === b))
     columns = present.map(b => ({
       key: b,
-      label: POS_ABBR[b] ?? b,
-      sub: `${subjects.filter(a => a.primary_position === b).length}`,
+      label: POSITION_ABBR[b] ?? b,
+      sub: `${subjects.filter(a => norm(a.primary_position) === b).length}`,
     }))
     const grouped = Object.fromEntries(
-      present.map(b => [b, subjects.filter(a => a.primary_position === b).map(ratingsToMap)])
+      present.map(b => [b, subjects.filter(a => norm(a.primary_position) === b).map(ratingsToMap)])
     )
     valueFor = (skillId, key) => {
       const vals = grouped[key].map(m => m[skillId]).filter(v => v != null)

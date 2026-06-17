@@ -30,13 +30,17 @@ class PlayerAssessmentCreate(BaseModel):
     ratings: list[RatingIn]
 
 
-POSITION_PATTERN = "^(Goalkeeper|Defender|Midfielder|Winger|Striker)$"
+POSITION_PATTERN = "^(goalkeeper|defender|midfielder|winger|striker)$"
+
+
+FREQUENCY_PATTERN = "^(rarely|sometimes|often)$"
 
 
 class CoachAssessmentCreate(BaseModel):
     player_name: str = Field(..., min_length=1, max_length=100)
     primary_position: str = Field(..., pattern=POSITION_PATTERN)
     secondary_position: Optional[str] = Field(None, pattern=POSITION_PATTERN)
+    secondary_position_frequency: Optional[str] = Field(None, pattern=FREQUENCY_PATTERN)
     period_id: int
     ratings: list[RatingIn]
 
@@ -55,6 +59,7 @@ class AssessmentOut(BaseModel):
     position: str
     primary_position: Optional[str]
     secondary_position: Optional[str]
+    secondary_position_frequency: Optional[str]
     assessor: str
     created_at: datetime
     updated_at: Optional[datetime]

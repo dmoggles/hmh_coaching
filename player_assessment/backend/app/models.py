@@ -26,6 +26,7 @@ class Assessment(Base):
     position = Column(String(20), nullable=False)  # outfield | goalkeeper (drives skill set)
     primary_position = Column(String(20), nullable=True)  # Goalkeeper | Defender | Midfielder | Winger | Striker
     secondary_position = Column(String(20), nullable=True)
+    secondary_position_frequency = Column(String(20), nullable=True)  # rarely | sometimes | often
     period_id = Column(Integer, ForeignKey("periods.id"), nullable=False)
     assessor = Column(String(10), nullable=False)  # coach | player
     created_at = Column(DateTime(timezone=True), server_default=func.now())

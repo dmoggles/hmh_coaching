@@ -3,11 +3,7 @@ import { getSkillMatrix, getPeriods, getPlayersForPeriod, getCoachAssessment, ge
 import SkillForm from './SkillForm'
 import ComparisonView from './ComparisonView'
 import HeatmapView from './HeatmapView'
-
-const POSITIONS = ['Goalkeeper', 'Defender', 'Midfielder', 'Winger', 'Striker']
-const POS_ABBR = { Goalkeeper: 'GK', Defender: 'DEF', Midfielder: 'MID', Winger: 'WNG', Striker: 'ST' }
-
-const skillSetFor = (primary) => (primary === 'Goalkeeper' ? 'goalkeeper' : 'outfield')
+import { ALL_POSITIONS, POSITION_LABELS, POSITION_ABBR, FREQUENCIES, skillSetFor, sectionsFor, norm } from './matrix'
 
 export default function CoachPage() {
   const [apiKey, setApiKey] = useState(localStorage.getItem('coach_api_key') ?? '')
@@ -17,8 +13,9 @@ export default function CoachPage() {
   const [periodId, setPeriodId] = useState('')
   const [players, setPlayers] = useState([])
   const [playerName, setPlayerName] = useState('')
-  const [primaryPosition, setPrimaryPosition] = useState('Defender')
+  const [primaryPosition, setPrimaryPosition] = useState('defender')
   const [secondaryPosition, setSecondaryPosition] = useState('')
+  const [secondaryFrequency, setSecondaryFrequency] = useState('sometimes')
   const [ratings, setRatings] = useState({})
   const [status, setStatus] = useState('idle')
   const [errorMsg, setErrorMsg] = useState('')
@@ -64,16 +61,18 @@ export default function CoachPage() {
 
   const handlePlayerSelect = async (p) => {
     setPlayerName(p.player_name)
-    setPrimaryPosition(p.primary_position ?? (p.position === 'goalkeeper' ? 'Goalkeeper' : 'Defender'))
-    setSecondaryPosition(p.secondary_position ?? '')
+    setPrimaryPosition(norm(p.primary_position) ?? (p.position === 'goalkeeper' ? 'goalkeeper' : 'defender'))
+    setSecondaryPosition(norm(p.secondary_position) ?? '')
+    setSecondaryFrequency(p.secondary_position_frequency ?? 'sometimes')
     setRatings({})
     setStatus('idle')
 
     try {
       const existing = await getCoachAssessment(periodId, p.player_name, apiKey)
       if (existing) {
-        if (existing.primary_position) setPrimaryPosition(existing.primary_position)
-        setSecondaryPosition(existing.secondary_position ?? '')
+        if (existing.primary_position) setPrimaryPosition(norm(existing.primary_position))
+        setSecondaryPosition(norm(existing.secondary_position) ?? '')
+        setSecondaryFrequency(existing.secondary_position_frequency ?? 'sometimes')
         const map = {}
         for (const r of existing.ratings) {
           if (r.score != null) map[r.skill_id] = r.score
@@ -94,9 +93,7 @@ export default function CoachPage() {
     setStatus('submitting')
     setErrorMsg('')
     try {
-      const allSkills = matrix.sections
-        .filter(s => s.applies_to.includes(position))
-        .flatMap(s => s.skills)
+      const allSkills = sectionsFor(matrix, position).flatMap(s => s.skills)
       const ratingList = allSkills.map(skill => ({
         skill_id: skill.id,
         score: ratings[skill.id] ?? null,
@@ -105,6 +102,7 @@ export default function CoachPage() {
         player_name: playerName.trim(),
         primary_position: primaryPosition,
         secondary_position: secondaryPosition || null,
+        secondary_position_frequency: secondaryPosition ? secondaryFrequency : null,
         period_id: Number(periodId),
         ratings: ratingList,
       }, apiKey)
@@ -202,7 +200,7 @@ export default function CoachPage() {
               >
                 {p.player_name}
                 <span className="pos-tag">
-                  {POS_ABBR[p.primary_position] ?? (p.position === 'goalkeeper' ? 'GK' : 'OF')}
+                  {POSITION_ABBR[norm(p.primary_position)] ?? (p.position === 'goalkeeper' ? 'GK' : 'OF')}
                 </span>
               </button>
             ))}
@@ -261,7 +259,7 @@ export default function CoachPage() {
                         if (secondaryPosition === next) setSecondaryPosition('')
                       }}
                     >
-                      {POSITIONS.map(p => <option key={p} value={p}>{p}</option>)}
+                      {ALL_POSITIONS.map(p => <option key={p} value={p}>{POSITION_LABELS[p]}</option>)}
                     </select>
                   </div>
                   <div className="field">
@@ -271,11 +269,19 @@ export default function CoachPage() {
                       onChange={e => setSecondaryPosition(e.target.value)}
                     >
                       <option value="">None</option>
-                      {POSITIONS.filter(p => p !== primaryPosition).map(p => (
-                        <option key={p} value={p}>{p}</option>
+                      {ALL_POSITIONS.filter(p => p !== primaryPosition).map(p => (
+                        <option key={p} value={p}>{POSITION_LABELS[p]}</option>
                       ))}
                     </select>
                   </div>
+                  {secondaryPosition && (
+                    <div className="field">
+                      <label>How often?</label>
+                      <select value={secondaryFrequency} onChange={e => setSecondaryFrequency(e.target.value)}>
+                        {FREQUENCIES.map(f => <option key={f.id} value={f.id}>{f.label}</option>)}
+                      </select>
+                    </div>
+                  )}
                 </div>
 
                 <SkillForm

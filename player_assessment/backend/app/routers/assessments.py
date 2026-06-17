@@ -61,13 +61,17 @@ def submit_coach_assessment(
         Assessment.assessor == "coach",
     ).first()
 
-    position = "goalkeeper" if body.primary_position == "Goalkeeper" else "outfield"
+    position = "goalkeeper" if body.primary_position == "goalkeeper" else "outfield"
+
+    # No secondary position means frequency is meaningless.
+    frequency = body.secondary_position_frequency if body.secondary_position else None
 
     if existing:
         _upsert_ratings(db, existing, body.ratings)
         existing.position = position
         existing.primary_position = body.primary_position
         existing.secondary_position = body.secondary_position
+        existing.secondary_position_frequency = frequency
         db.commit()
         db.refresh(existing)
         return existing
@@ -77,6 +81,7 @@ def submit_coach_assessment(
         position=position,
         primary_position=body.primary_position,
         secondary_position=body.secondary_position,
+        secondary_position_frequency=frequency,
         period_id=body.period_id,
         assessor="coach",
     )
@@ -150,6 +155,7 @@ def get_player_names_for_period(period_id: int, db: Session = Depends(get_db), _
             "position": a.position,
             "primary_position": a.primary_position,
             "secondary_position": a.secondary_position,
+            "secondary_position_frequency": a.secondary_position_frequency,
         }
         for a in sorted(by_name.values(), key=lambda x: x.player_name.lower())
     ]

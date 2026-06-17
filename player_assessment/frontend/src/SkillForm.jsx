@@ -1,7 +1,9 @@
 const SCALE = [1, 2, 3, 4, 5]
 const ANCHOR_LABELS = { 1: 'Developing', 3: 'Achieving', 5: 'Excelling' }
 
-export default function SkillForm({ matrix, position, ratings, onChange, readOnly = false }) {
+export const UNKNOWN = 'unknown'
+
+export default function SkillForm({ matrix, position, ratings, onChange, readOnly = false, allowUnknown = false }) {
   const relevantSections = matrix.sections.filter(s =>
     s.applies_to.includes(position)
   )
@@ -42,6 +44,17 @@ export default function SkillForm({ matrix, position, ratings, onChange, readOnl
                       </button>
                     )
                   })}
+                  {allowUnknown && (
+                    <button
+                      type="button"
+                      disabled={readOnly}
+                      className={`option-btn unknown ${score === UNKNOWN ? 'selected' : ''}`}
+                      onClick={() => !readOnly && onChange(skill.id, score === UNKNOWN ? null : UNKNOWN)}
+                    >
+                      <span className="option-num">?</span>
+                      <span className="option-text option-intermediate-text">I don't know</span>
+                    </button>
+                  )}
                 </div>
               </div>
             )

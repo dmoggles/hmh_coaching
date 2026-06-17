@@ -134,6 +134,9 @@ header h1 { font-size: 1.6rem; color: var(--green); }
   padding: 10px 14px 10px 0;
 }
 .option-btn.intermediate .option-num { font-size: 1.1rem; }
+.option-btn.unknown .option-num { font-size: 1.2rem; }
+.option-btn.unknown.selected { border-color: var(--muted); background: #eef1f0; }
+.option-btn.unknown.selected .option-num { background: var(--muted); color: #fff; border-right-color: var(--muted); }
 
 /* Selected state */
 .option-btn.selected { border-color: var(--green); background: #eaf5ee; }

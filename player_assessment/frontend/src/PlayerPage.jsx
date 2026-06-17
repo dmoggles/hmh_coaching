@@ -34,10 +34,12 @@ export default function PlayerPage() {
       const allSkills = matrix.sections
         .filter(s => s.applies_to.includes(position))
         .flatMap(s => s.skills)
-      const ratingList = allSkills.map(skill => ({
-        skill_id: skill.id,
-        score: ratings[skill.id] ?? null,
-      }))
+      const ratingList = allSkills.map(skill => {
+        const raw = ratings[skill.id]
+        // "I don't know" and untouched both store as a null score.
+        const score = typeof raw === 'number' ? raw : null
+        return { skill_id: skill.id, score }
+      })
       await submitPlayerAssessment({
         player_name: name.trim(),
         position,
@@ -135,6 +137,7 @@ export default function PlayerPage() {
               position={position}
               ratings={ratings}
               onChange={handleRating}
+              allowUnknown
             />
 
             {status === 'error' && <p className="error">{errorMsg}</p>}

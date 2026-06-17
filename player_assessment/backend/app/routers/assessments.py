@@ -108,20 +108,19 @@ def get_assessments_for_period(period_id: int, db: Session = Depends(get_db), _=
 
 @router.get("/period/{period_id}/players")
 def get_player_names_for_period(period_id: int, db: Session = Depends(get_db), _=Depends(require_coach)):
-    rows = db.query(
-        Assessment.player_name,
-        Assessment.position,
-        Assessment.primary_position,
-        Assessment.secondary_position,
-    ).filter(
-        Assessment.period_id == period_id
-    ).distinct().all()
+    rows = db.query(Assessment).filter(Assessment.period_id == period_id).all()
+    # One entry per player name; the coach assessment's positions win over the
+    # player's self-assessment so the list shows the coach's view of each player.
+    by_name = {}
+    for a in rows:
+        if a.player_name not in by_name or a.assessor == "coach":
+            by_name[a.player_name] = a
     return [
         {
-            "player_name": r.player_name,
-            "position": r.position,
-            "primary_position": r.primary_position,
-            "secondary_position": r.secondary_position,
+            "player_name": a.player_name,
+            "position": a.position,
+            "primary_position": a.primary_position,
+            "secondary_position": a.secondary_position,
         }
-        for r in rows
+        for a in sorted(by_name.values(), key=lambda x: x.player_name.lower())
     ]

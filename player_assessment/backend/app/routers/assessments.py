@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
@@ -84,6 +85,20 @@ def submit_coach_assessment(
     db.commit()
     db.refresh(assessment)
     return assessment
+
+
+@router.get("/coach", response_model=Optional[AssessmentOut])
+def get_coach_assessment(
+    period_id: int,
+    player_name: str,
+    db: Session = Depends(get_db),
+    _=Depends(require_coach),
+):
+    return db.query(Assessment).filter(
+        Assessment.player_name == player_name,
+        Assessment.period_id == period_id,
+        Assessment.assessor == "coach",
+    ).first()
 
 
 @router.get("/period/{period_id}", response_model=list[AssessmentOut])

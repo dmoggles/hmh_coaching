@@ -19,5 +19,10 @@ export const submitCoachAssessment = (payload, apiKey) =>
 export const getPlayersForPeriod = (periodId, apiKey) =>
   coachApi(apiKey).get(`/assessments/period/${periodId}/players`).then(r => r.data)
 
+export const getCoachAssessment = (periodId, playerName, apiKey) =>
+  coachApi(apiKey)
+    .get('/assessments/coach', { params: { period_id: periodId, player_name: playerName } })
+    .then(r => r.data)
+
 export const createPeriod = (payload, apiKey) =>
   coachApi(apiKey).post('/periods', payload).then(r => r.data)

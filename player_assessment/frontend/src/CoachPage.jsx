@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getSkillMatrix, getPeriods, getPlayersForPeriod, submitCoachAssessment, createPeriod } from './api'
+import { getSkillMatrix, getPeriods, getPlayersForPeriod, getCoachAssessment, submitCoachAssessment, createPeriod } from './api'
 import SkillForm from './SkillForm'
 
 const POSITIONS = ['Goalkeeper', 'Defender', 'Midfielder', 'Winger', 'Striker']
@@ -43,12 +43,27 @@ export default function CoachPage() {
     }
   }, [authed, periodId, apiKey])
 
-  const handlePlayerSelect = (p) => {
+  const handlePlayerSelect = async (p) => {
     setPlayerName(p.player_name)
     setPrimaryPosition(p.primary_position ?? (p.position === 'goalkeeper' ? 'Goalkeeper' : 'Defender'))
     setSecondaryPosition(p.secondary_position ?? '')
     setRatings({})
     setStatus('idle')
+
+    try {
+      const existing = await getCoachAssessment(periodId, p.player_name, apiKey)
+      if (existing) {
+        if (existing.primary_position) setPrimaryPosition(existing.primary_position)
+        setSecondaryPosition(existing.secondary_position ?? '')
+        const map = {}
+        for (const r of existing.ratings) {
+          if (r.score != null) map[r.skill_id] = r.score
+        }
+        setRatings(map)
+      }
+    } catch {
+      // no saved coach assessment yet — leave the form blank
+    }
   }
 
   const handleRating = (skillId, score) => {

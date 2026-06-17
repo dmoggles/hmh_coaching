@@ -87,6 +87,16 @@ def submit_coach_assessment(
     return assessment
 
 
+@router.get("/player/exists")
+def player_assessment_exists(period_id: int, player_name: str, db: Session = Depends(get_db)):
+    exists = db.query(Assessment).filter(
+        Assessment.player_name == player_name,
+        Assessment.period_id == period_id,
+        Assessment.assessor == "player",
+    ).first() is not None
+    return {"submitted": exists}
+
+
 @router.get("/coach", response_model=Optional[AssessmentOut])
 def get_coach_assessment(
     period_id: int,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getSkillMatrix, getPeriods, submitPlayerAssessment } from './api'
+import { getSkillMatrix, getPeriods, submitPlayerAssessment, checkPlayerSubmitted } from './api'
 import SkillForm from './SkillForm'
 
 export default function PlayerPage() {
@@ -11,6 +11,7 @@ export default function PlayerPage() {
   const [ratings, setRatings] = useState({})
   const [status, setStatus] = useState('idle') // idle | submitting | done | error | already_submitted
   const [errorMsg, setErrorMsg] = useState('')
+  const [locked, setLocked] = useState(false) // already submitted for this name+period
 
   useEffect(() => {
     getSkillMatrix().then(setMatrix)
@@ -20,6 +21,21 @@ export default function PlayerPage() {
       if (active.length === 1) setPeriodId(active[0].id)
     })
   }, [])
+
+  // Detect an existing submission for this name + period as the player types.
+  useEffect(() => {
+    const n = name.trim()
+    if (!n || !periodId) {
+      setLocked(false)
+      return
+    }
+    const t = setTimeout(() => {
+      checkPlayerSubmitted(periodId, n)
+        .then(d => setLocked(d.submitted))
+        .catch(() => setLocked(false))
+    }, 400)
+    return () => clearTimeout(t)
+  }, [name, periodId])
 
   const handleRating = (skillId, score) => {
     setRatings(r => ({ ...r, [skillId]: score }))
@@ -88,13 +104,21 @@ export default function PlayerPage() {
         <div className="form-fields">
           <div className="field">
             <label>Your name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              placeholder="First name or full name"
-              required
-            />
+            <div className={`name-input ${locked ? 'locked' : ''}`}>
+              <input
+                type="text"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                placeholder="First name or full name"
+                required
+              />
+              {locked && <span className="lock-sigil" title="Already submitted for this period">🔒</span>}
+            </div>
+            {locked && (
+              <p className="lock-note">
+                You’ve already submitted your self-assessment for this period — it can’t be changed.
+              </p>
+            )}
           </div>
 
           <div className="field">
@@ -132,20 +156,23 @@ export default function PlayerPage() {
               <span className="legend-item muted">2 &amp; 4 are intermediate</span>
             </div>
 
-            <SkillForm
-              matrix={matrix}
-              position={position}
-              ratings={ratings}
-              onChange={handleRating}
-              allowUnknown
-            />
+            <div className={locked ? 'matrix-locked' : ''}>
+              <SkillForm
+                matrix={matrix}
+                position={position}
+                ratings={ratings}
+                onChange={handleRating}
+                allowUnknown
+                readOnly={locked}
+              />
+            </div>
 
             {status === 'error' && <p className="error">{errorMsg}</p>}
 
             <button
               type="submit"
               className="submit-btn"
-              disabled={status === 'submitting' || !name.trim()}
+              disabled={status === 'submitting' || !name.trim() || locked}
             >
               {status === 'submitting' ? 'Saving…' : 'Submit Assessment'}
             </button>

@@ -13,6 +13,10 @@ export const getPeriods = () => api.get('/periods').then(r => r.data)
 export const submitPlayerAssessment = (payload) =>
   api.post('/assessments/player', payload).then(r => r.data)
 
+export const checkPlayerSubmitted = (periodId, playerName) =>
+  api.get('/assessments/player/exists', { params: { period_id: periodId, player_name: playerName } })
+    .then(r => r.data)
+
 export const submitCoachAssessment = (payload, apiKey) =>
   coachApi(apiKey).post('/assessments/coach', payload).then(r => r.data)
 

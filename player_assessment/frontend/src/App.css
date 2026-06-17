@@ -45,6 +45,13 @@ header h1 { font-size: 1.6rem; color: var(--green); }
 }
 .field input:focus, .field select:focus { outline: 2px solid var(--accent); border-color: transparent; }
 
+.name-input { position: relative; display: flex; align-items: center; }
+.name-input.locked input { border-color: var(--accent); background: #f3f8f5; padding-right: 38px; }
+.lock-sigil { position: absolute; right: 12px; font-size: 1.05rem; line-height: 1; }
+.lock-note { margin-top: 6px; font-size: 0.85rem; color: var(--green); font-weight: 600; }
+
+.matrix-locked { opacity: 0.5; pointer-events: none; filter: grayscale(0.6); }
+
 .period-label { font-size: 0.95rem; color: var(--muted); }
 .period-label strong { color: var(--text); }
 .warning { color: var(--error); }

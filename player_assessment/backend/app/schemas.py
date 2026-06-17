@@ -72,3 +72,26 @@ class AssessmentOut(BaseModel):
 class ComparisonOut(BaseModel):
     coach: Optional[AssessmentOut]
     player: Optional[AssessmentOut]
+
+
+class PriorityIn(BaseModel):
+    skill_id: str
+    rank: int = Field(..., ge=1, le=3)
+    algorithm_suggested: bool = True
+    coach_note: Optional[str] = Field(None, max_length=500)
+
+
+class PrioritiesSet(BaseModel):
+    player_name: str = Field(..., min_length=1, max_length=100)
+    period_id: int
+    priorities: list[PriorityIn]
+
+
+class PriorityOut(BaseModel):
+    skill_id: str
+    rank: int
+    algorithm_suggested: bool
+    coach_note: Optional[str]
+
+    class Config:
+        from_attributes = True

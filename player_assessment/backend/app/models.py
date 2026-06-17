@@ -36,6 +36,22 @@ class Assessment(Base):
     ratings = relationship("Rating", back_populates="assessment", cascade="all, delete-orphan")
 
 
+class PriorityConfirmation(Base):
+    __tablename__ = "priority_confirmations"
+    __table_args__ = (
+        UniqueConstraint("period_id", "player_name", "skill_id", name="uq_priority_player_skill"),
+    )
+
+    id = Column(Integer, primary_key=True, index=True)
+    period_id = Column(Integer, ForeignKey("periods.id"), nullable=False)
+    player_name = Column(String(100), nullable=False, index=True)
+    skill_id = Column(String(50), nullable=False)
+    rank = Column(SmallInteger, nullable=False)  # 1 = highest priority
+    algorithm_suggested = Column(Boolean, nullable=False, default=True)
+    coach_note = Column(String(500), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
 class Rating(Base):
     __tablename__ = "ratings"
 

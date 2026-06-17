@@ -3,6 +3,7 @@ import { getSkillMatrix, getPeriods, getPlayersForPeriod, getCoachAssessment, ge
 import SkillForm from './SkillForm'
 import ComparisonView from './ComparisonView'
 import SummaryView from './SummaryView'
+import PrioritiesView from './PrioritiesView'
 import HeatmapView from './HeatmapView'
 import { ALL_POSITIONS, POSITION_LABELS, POSITION_ABBR, FREQUENCIES, skillSetFor, sectionsFor, norm } from './matrix'
 
@@ -48,7 +49,7 @@ export default function CoachPage() {
   }, [authed, periodId, apiKey])
 
   useEffect(() => {
-    if ((mode === 'compare' || mode === 'summary') && periodId && playerName) {
+    if ((mode === 'compare' || mode === 'summary' || mode === 'priorities') && periodId && playerName) {
       setComparison(null)
       getComparison(periodId, playerName, apiKey).then(setComparison).catch(() => {})
     }
@@ -242,15 +243,31 @@ export default function CoachPage() {
                     >
                       Summary
                     </button>
+                    <button
+                      type="button"
+                      className={mode === 'priorities' ? 'active' : ''}
+                      onClick={() => setMode('priorities')}
+                    >
+                      Priorities
+                    </button>
                   </div>
                 </div>
 
-                {mode === 'compare' || mode === 'summary' ? (
+                {mode === 'compare' || mode === 'summary' || mode === 'priorities' ? (
                   comparison ? (
                     mode === 'compare' ? (
                       <ComparisonView matrix={matrix} coach={comparison.coach} player={comparison.player} />
-                    ) : (
+                    ) : mode === 'summary' ? (
                       <SummaryView matrix={matrix} coach={comparison.coach} player={comparison.player} />
+                    ) : (
+                      <PrioritiesView
+                        matrix={matrix}
+                        coach={comparison.coach}
+                        player={comparison.player}
+                        periodId={periodId}
+                        playerName={playerName}
+                        apiKey={apiKey}
+                      />
                     )
                   ) : (
                     <p className="muted">Loading…</p>

@@ -36,5 +36,13 @@ export const getComparison = (periodId, playerName, apiKey) =>
 export const getPeriodAssessments = (periodId, apiKey) =>
   coachApi(apiKey).get(`/assessments/period/${periodId}`).then(r => r.data)
 
+export const getPriorities = (periodId, playerName, apiKey) =>
+  coachApi(apiKey)
+    .get('/priorities', { params: { period_id: periodId, player_name: playerName } })
+    .then(r => r.data)
+
+export const setPriorities = (payload, apiKey) =>
+  coachApi(apiKey).put('/priorities', payload).then(r => r.data)
+
 export const createPeriod = (payload, apiKey) =>
   coachApi(apiKey).post('/periods', payload).then(r => r.data)

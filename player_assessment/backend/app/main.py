@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .config import settings
 from .database import engine, Base
-from .routers import periods, assessments
+from .routers import periods, assessments, priorities
 
 Base.metadata.create_all(bind=engine)
 
@@ -20,6 +20,7 @@ app.add_middleware(
 
 app.include_router(periods.router)
 app.include_router(assessments.router)
+app.include_router(priorities.router)
 
 SKILL_MATRIX_PATH = Path(__file__).parent.parent / "bobtails_skill_matrix.json"
 
